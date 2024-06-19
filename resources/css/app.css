@@ -1,0 +1,52 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    cursor: default !important;
+}
+
+@layer base {
+    body {
+        @apply relative z-1 bg-whiten  text-base font-normal text-body;
+    }
+}
+
+@layer utilities {
+    /* Chrome, Safari and Opera */
+    .no-scrollbar::-webkit-scrollbar {
+        display: none;
+    }
+
+    .no-scrollbar {
+        -ms-overflow-style: none; /* IE and Edge */
+        scrollbar-width: none; /* Firefox */
+    }
+
+    .chat-height {
+        @apply h-[calc(100vh_-_8.125rem)] lg:h-[calc(100vh_-_5.625rem)];
+    }
+    .inbox-height {
+        @apply h-[calc(100vh_-_8.125rem)] lg:h-[calc(100vh_-_5.625rem)];
+    }
+}
+
+@layer components {
+    body::-webkit-scrollbar {
+        width: 12px; /* width of the entire scrollbar */
+    }
+
+    body::-webkit-scrollbar-track {
+        @apply bg-dark-blue-900;
+    }
+
+    body::-webkit-scrollbar-thumb {
+        @apply bg-dark-blue-700 rounded-full;
+    }
+}
