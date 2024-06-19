@@ -11,6 +11,7 @@ class FilmSeeder extends Seeder
     {
         $films = [
             [
+                'film_category_id' => 2,
                 'title' => 'House of the Dragon',
                 'description' => 'Seri prekuel menemukan dinasti Targaryen di puncak mutlak kekuatannya...',
                 'production' => 'Targaryen Productions',
@@ -25,6 +26,7 @@ class FilmSeeder extends Seeder
                 'rating' => 4
             ],
             [
+                'film_category_id' => 1,
                 'title' => 'IF',
                 'description' => 'A young girl who goes through a difficult experience begins to see everyone\'s imaginary friends...',
                 'production' => 'IF Productions',
@@ -39,6 +41,7 @@ class FilmSeeder extends Seeder
                 'rating' => 5
             ],
             [
+                'film_category_id' => 1,
                 'title' => 'The Batman',
                 'description' => 'In his second year of fighting crime, Batman uncovers corruption in Gotham City...',
                 'production' => 'Wayne Enterprises',
@@ -53,6 +56,7 @@ class FilmSeeder extends Seeder
                 'rating' => 4
             ],
             [
+                'film_category_id' => 1,
                 'title' => 'The Matrix Resurrections',
                 'description' => 'Return to a world of two realities: one, everyday life; the other, what lies behind it...',
                 'production' => 'Matrix Productions',
@@ -67,6 +71,7 @@ class FilmSeeder extends Seeder
                 'rating' => 4
             ],
             [
+                'film_category_id' => 2,
                 'title' => 'Jujutsu Kaisen',
                 'description' => 'A boy swallows a cursed talisman - the finger of a demon - and becomes cursed himself. He enters a shaman`s school to be able to locate the demon`s other body parts and thus exorcise himself.',
                 'production' => 'MAPPA',
