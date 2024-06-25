@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -49,9 +50,7 @@ Route::get('/flixie-admin', function () {
     return view('admin.login.index');
 })->name("login-admin");
 
-Route::get('/flixie-admin/dashboard', function () {
-    return view('admin.index');
-})->name("home-admin");
+Route::get('/flixie-admin/dashboard', [DashboardController::class, 'index'])->name("home-admin");
 
 Route::get('/flixie-admin/dashboard/user', function () {
     return view('admin.user');

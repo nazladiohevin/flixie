@@ -19,7 +19,7 @@ $watch('darkMode', value => localStorage.setItem('darkMode', JSON.stringify(valu
     <div class="relative flex flex-1 flex-col overflow-y-auto overflow-x-hidden">
       @include('admin.partials.navbar')
 
-      <main class="mx-auto max-w-screen-2xl p-4 md:p-6 2xl:p-10">
+      <main>
         @yield('content')
       </main>
     </div>
