@@ -15,10 +15,12 @@ return new class extends Migration
             $table->id();
             $table->foreignId("film_category_id");
             $table->string("title");
+            $table->string("slug")->unique();
             $table->text("description");
             $table->string("production");
             $table->date("release_date");
             $table->text("url_trailer")->nullable();
+            $table->text("url_vidio")->nullable();
             $table->enum("region", ["english", "indonesia", "eropa", "japan"]);
             $table->integer("duration");
             $table->string("poster");

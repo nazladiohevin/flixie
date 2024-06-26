@@ -7,5 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class TransactionDetail extends Model
 {
-    use HasFactory;
+    use HasFactory;    
+
+    public function deleteBy($transactionId, $film_id){
+        // return $this->    
+    }
 }

@@ -20,25 +20,43 @@
       </div>
       <!-- Profil Picture -->
       <div class="relative flex items-center justify-center">
+        @auth
+        <div data-dropdown-toggle="dropdown">
+          <p class=" text-white font-semibold text-lg cursor-pointer p-2">{{ auth()->user()->name }}</p>
+        </div>
+        @else
         <div class="size-12 cursor-pointer rounded-full transition-all duration-200 ease-in-out hover:scale-110"
-          data-modal-target="login-modal" data-modal-toggle="login-modal" id="btnProfile">
+          id="btnProfile" data-dropdown-toggle="dropdown">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-12">
             <path fill="white" fill-rule="evenodd"
               d="M12 4a8 8 0 0 0-6.96 11.947A4.99 4.99 0 0 1 9 14h6a4.99 4.99 0 0 1 3.96 1.947A8 8 0 0 0 12 4m7.943 14.076A9.959 9.959 0 0 0 22 12c0-5.523-4.477-10-10-10S2 6.477 2 12a9.958 9.958 0 0 0 2.057 6.076l-.005.018l.355.413A9.98 9.98 0 0 0 12 22a9.947 9.947 0 0 0 5.675-1.765a10.055 10.055 0 0 0 1.918-1.728l.355-.413zM12 6a3 3 0 1 0 0 6a3 3 0 0 0 0-6"
               clip-rule="evenodd" />
           </svg>
-        </div>
+        </div>              
+        @endauth
         <!-- Dropdown -->
-        <!-- <div id="dropdown" class="z-10 hidden bg-dark-blue-800 rounded-lg shadow overflow-hidden" >
-          <ul class="p-3 text-sm text-white text-center font-semibold divide-y divide-white/20" aria-labelledby="dropdownAuth">
-            <li>
-              <button data-modal-target="login-modal" data-modal-toggle="login-modal" type="button"  class="block px-8 py-2 w-full rounded-lg hover:bg-dark-blue-700">Login</button>
-            </li>
-            <li>
-              <button data-modal-target="register-modal" data-modal-toggle="register-modal" type="button"  class="block px-8 w-full py-2 rounded-lg hover:bg-dark-blue-700">Register</button>
-            </li>
+        <div id="dropdown" class="z-10 hidden bg-dark-blue-800 rounded-lg shadow overflow-hidden">
+          <ul class="p-3 text-sm text-white text-center font-semibold divide-y divide-white/20"
+            aria-labelledby="dropdownAuth">
+            @auth
+              <li>
+                <form action="/logout" method="post">
+                  @csrf                  
+                  <button type="submit" class="block px-8 py-2 w-full rounded-lg hover:bg-dark-blue-700">Keluar</button>
+                </form>
+              </li>
+            @else
+              <li>
+                <a href="{{ route('login') }}" class="block px-8 py-2 w-full rounded-lg hover:bg-dark-blue-700">Masuk</a>
+              </li>
+              <li>
+                <a href="{{ route('register') }}"
+                  class="block px-8 py-2 w-full rounded-lg hover:bg-dark-blue-700">Daftar</a>
+              </li>
+            @endauth
+
           </ul>
-        </div>                     -->
+        </div>
       </div>
       <!-- Hamburger menu -->
       <button data-collapse-toggle="mynavbar" type="button"

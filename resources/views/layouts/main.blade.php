@@ -39,7 +39,6 @@
 
 <body class="bg-dark-blue-1000 font-inter !overflow-auto">
   @include('partials.navbar')
-  @include('partials.modal')
 
   @yield('content')
 
@@ -52,12 +51,18 @@
   <!-- Slick.js -->
   <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 
+  {{-- Sweet alert --}}
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
   <!-- Global Client JS -->
   <script src="{{ asset('js/data.js') }}"></script>
   <script src="{{ asset('js/index.js') }}"></script>
 
   <!-- Custom js -->
-  <script src="{{ asset('js/landing.js') }}"></script>
+  <script>
+    const baseUrl = "http://127.0.0.1:8000"
+  </script>
+  @yield("js-custom")
 </body>
 
 </html>

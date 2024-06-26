@@ -38,109 +38,61 @@
             <h4 class="text-h4 text-white font-semibold">Keranjang Saya</h4>
 
             <div class="flex flex-col gap-y-32 md:gap-y-6">
-              <div class="flex w-full gap-x-3 md:gap-x-10 items-center h-48">
-                <div
-                  class="flex justify-between w-full px-6 py-5 flex-col gap-x-4 sm:flex-row bg-dark-blue-800/50 rounded-xl box-border">
-                  <div class="flex flex-col md:flex-row gap-5">
-                    <div class="rounded-lg overflow-hidden w-36 h-36 sm:h-48 md:h-full md:w-28">
-                      <img src="../../public/images/poster2.jpg" alt="" class="size-full object-cover object-top">
-                    </div>
-                    <div class="flex flex-col gap-y-1 justify-center">
-                      <h6 class="text-white font-semibold md:text-2xl">Spiderman Home Coming</h6>
-                      <p class="text-white text-sm md:text-base"><b class="font-semibold">Durasi</b>: 1 Jam 30 Menit</p>
-                    </div>
-                  </div>
-                  <div class="flex items-center">
-                    <p
-                      class="text-center mt-2 sm:mt-0 text-xl sm:text-start sm:text-2xl lg:text-4xl font-bold text-[#EFF40C] [text-shadow:_1px_2px_10px_rgb(239_244_12_/_35%)]">
-                      Rp 40.000
-                    </p>
-                  </div>
-                </div>
-
-                <div>
+              @php
+                $totalPrice = 0.0;
+                $totalFilm = 0;
+              @endphp
+              @foreach ($transactions as $transaction)
+                @php
+                  $totalPrice += $transaction->price; 
+                  $totalFilm += 1; 
+                @endphp
+                <div class="flex w-full gap-x-3 md:gap-x-10 items-center h-48" id="container">
                   <div
-                    class="flex justify-center items-center size-9 rounded-full bg-red-600 cursor-pointer transition-transform hover:scale-110">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="text-white size-5" viewBox="0 0 32 32">
-                      <path fill="currentColor"
-                        d="M24.879 2.879A3 3 0 1 1 29.12 7.12l-8.79 8.79a.125.125 0 0 0 0 .177l8.79 8.79a3 3 0 1 1-4.242 4.243l-8.79-8.79a.125.125 0 0 0-.177 0l-8.79 8.79a3 3 0 1 1-4.243-4.242l8.79-8.79a.125.125 0 0 0 0-.177l-8.79-8.79A3 3 0 0 1 7.12 2.878l8.79 8.79a.125.125 0 0 0 .177 0z" />
-                    </svg>
-                  </div>
-                </div>
-              </div>
-
-              <div class="flex w-full gap-x-3 md:gap-x-10 items-center h-48">
-                <div
-                  class="flex justify-between w-full px-6 py-5 flex-col gap-x-4 sm:flex-row bg-dark-blue-800/50 rounded-xl box-border">
-                  <div class="flex flex-col md:flex-row gap-5">
-                    <div class="rounded-lg overflow-hidden w-36 h-36 sm:h-48 md:h-full md:w-28">
-                      <img src="../../public/images/poster1.jpg" alt="" class="size-full object-cover object-top">
+                    class="flex justify-between w-full px-6 py-5 flex-col gap-x-4 sm:flex-row bg-dark-blue-800/50 rounded-xl box-border">
+                    <div class="flex flex-col md:flex-row gap-5">
+                      <div class="rounded-lg overflow-hidden w-36 h-36 sm:h-48 md:h-full md:w-28">
+                        <img src="{{ $transaction->poster }}" alt="" class="size-full object-cover object-top">
+                      </div>
+                      <div class="flex flex-col gap-y-1 justify-center">
+                        <h6 class="text-white font-semibold md:text-2xl">{{ $transaction->title }}</h6>
+                        @if ($transaction->name == "movie")
+                          <p class="text-white text-sm md:text-base"><b class="font-semibold">Durasi</b>: {{ convertSecondsToReadableTime($transaction->duration) }}</p>                          
+                        @else
+                          <p class="text-white text-sm md:text-base"><b class="font-semibold">Durasi</b>: 24 Menit / Episode</p>                                                    
+                        @endif
+                      </div>
                     </div>
-                    <div class="flex flex-col gap-y-1 justify-center">
-                      <h6 class="text-white font-semibold md:text-2xl">Avengers: Endgame</h6>
-                      <p class="text-white text-sm md:text-base"><b class="font-semibold">Durasi</b>: 3 Jam 00 Menit</p>
-                    </div>
-                  </div>
-                  <div class="flex items-center">
-                    <p
-                      class="text-center mt-2 sm:mt-0 text-xl sm:text-start sm:text-2xl lg:text-4xl font-bold text-[#EFF40C] [text-shadow:_1px_2px_10px_rgb(239_244_12_/_35%)]">
-                      Rp 55.000
-                    </p>
-                  </div>
-                </div>
-
-                <div>
-                  <div
-                    class="flex justify-center items-center size-9 rounded-full bg-red-600 cursor-pointer transition-transform hover:scale-110">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="text-white size-5" viewBox="0 0 32 32">
-                      <path fill="currentColor"
-                        d="M24.879 2.879A3 3 0 1 1 29.12 7.12l-8.79 8.79a.125.125 0 0 0 0 .177l8.79 8.79a3 3 0 1 1-4.242 4.243l-8.79-8.79a.125.125 0 0 0-.177 0l-8.79 8.79a3 3 0 1 1-4.243-4.242l8.79-8.79a.125.125 0 0 0 0-.177l-8.79-8.79A3 3 0 0 1 7.12 2.878l8.79 8.79a.125.125 0 0 0 .177 0z" />
-                    </svg>
-                  </div>
-                </div>
-              </div>
-
-              <div class="flex w-full gap-x-3 md:gap-x-10 items-center h-48">
-                <div
-                  class="flex justify-between w-full px-6 py-5 flex-col gap-x-4 sm:flex-row bg-dark-blue-800/50 rounded-xl box-border">
-                  <div class="flex flex-col md:flex-row gap-5">
-                    <div class="rounded-lg overflow-hidden w-36 h-36 sm:h-48 md:h-full md:w-28">
-                      <img src="../../public/images/poster7.jpg" alt="" class="size-full object-cover object-top">
-                    </div>
-                    <div class="flex flex-col gap-y-1 justify-center">
-                      <h6 class="text-white font-semibold md:text-2xl">Batman: The Dark Knight</h6>
-                      <p class="text-white text-sm md:text-base"><b class="font-semibold">Durasi</b>: 2 Jam 10 Menit</p>
+                    <div class="flex items-center">
+                      <p
+                        class="text-center mt-2 sm:mt-0 text-xl sm:text-start sm:text-2xl lg:text-4xl font-bold text-[#EFF40C] [text-shadow:_1px_2px_10px_rgb(239_244_12_/_35%)]">
+                        Rp {{ number_format($transaction->price / 1000, 3, '.', ',') }}
+                      </p>
                     </div>
                   </div>
-                  <div class="flex items-center">
-                    <p
-                      class="text-center mt-2 sm:mt-0 text-xl sm:text-start sm:text-2xl lg:text-4xl font-bold text-[#EFF40C] [text-shadow:_1px_2px_10px_rgb(239_244_12_/_35%)]">
-                      Rp 45.000
-                    </p>
+                  <input type="hidden" name="film_id" value="{{ $transaction->id }}">                  
+                  <input type="hidden" name="id" value="{{ $transaction->transaction_id }}">                  
+                  <div>
+                    <button id="closeBtn"
+                      class="flex justify-center items-center size-9 rounded-full bg-red-600 cursor-pointer transition-transform hover:scale-110">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="text-white size-5" viewBox="0 0 32 32">
+                        <path fill="currentColor"
+                          d="M24.879 2.879A3 3 0 1 1 29.12 7.12l-8.79 8.79a.125.125 0 0 0 0 .177l8.79 8.79a3 3 0 1 1-4.242 4.243l-8.79-8.79a.125.125 0 0 0-.177 0l-8.79 8.79a3 3 0 1 1-4.243-4.242l8.79-8.79a.125.125 0 0 0 0-.177l-8.79-8.79A3 3 0 0 1 7.12 2.878l8.79 8.79a.125.125 0 0 0 .177 0z" />
+                      </svg>
+                    </button>
                   </div>
-                </div>
-
-                <div>
-                  <div
-                    class="flex justify-center items-center size-9 rounded-full bg-red-600 cursor-pointer transition-transform hover:scale-110">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="text-white size-5" viewBox="0 0 32 32">
-                      <path fill="currentColor"
-                        d="M24.879 2.879A3 3 0 1 1 29.12 7.12l-8.79 8.79a.125.125 0 0 0 0 .177l8.79 8.79a3 3 0 1 1-4.242 4.243l-8.79-8.79a.125.125 0 0 0-.177 0l-8.79 8.79a3 3 0 1 1-4.243-4.242l8.79-8.79a.125.125 0 0 0 0-.177l-8.79-8.79A3 3 0 0 1 7.12 2.878l8.79 8.79a.125.125 0 0 0 .177 0z" />
-                    </svg>
-                  </div>
-                </div>
-              </div>
-
+                </div>                
+              @endforeach        
             </div>
 
             <div class="flex justify-between pt-8 md:justify-end md:gap-x-28">
               <div class="text-white">
                 <div class="font-bold md:text-h4">Sub Total</div>
-                <span class="block"><b class="font-semibold">Total item</b>: 3</span>
+                <span class="block"><b class="font-semibold">Total item</b>: {{ $totalFilm }}</span>
               </div>
               <div
-                class="flex items-center font-bold text-2xl underline underline-offset-8 text-[#EFF40C] [text-shadow:_1px_2px_10px_rgb(239_244_12_/_35%)] md:text-5xl">
-                Rp 140.000
+                class="flex items-center font-bold text-2xl underline underline-offset-8 text-[#EFF40C] [text-shadow:_1px_2px_10px_rgb(239_244_12_/_35%)] md:text-5xl">                              
+                Rp {{ number_format($totalPrice / 1000, 3, '.', ',') }}
               </div>
             </div>
 
@@ -165,4 +117,7 @@
       </div>
     </section>
   </main>
+@endsection
+@section("js-custom")
+  <script src="{{ asset("js/myfilm.js") }}"></script>
 @endsection

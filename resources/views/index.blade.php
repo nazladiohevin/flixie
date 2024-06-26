@@ -92,7 +92,41 @@
 
     <!-- Film Recomendation -->
     <section>
-      <div class="relative -top-16 xl:-top-36 z-10 flex w-full justify-center gap-x-8" id="containerCards"></div>
+      <div class="relative -top-16 xl:-top-36 z-10 flex w-full justify-center gap-x-8" id="containerCards">
+        @foreach ($filmsWithRatings as $film)
+          <div class="w-full transition-all duration-300 ease-in">
+            <a href="/films/{{ $film->slug }}">
+              <div class="group relative h-[261px] overflow-hidden rounded-[10px]">
+                <!-- Poster Image -->
+                <img
+                  class="w-full h-full object-cover object-top group-hover:scale-105 transition-all duration-300 delay-100"
+                  src="{{ $film->poster }}" alt="{{ $film->title }}" />
+
+                <!-- Price Indicator -->
+                @if (!$film->is_free)
+                  <div
+                    class="absolute right-0 top-0 rounded-bl-full bg-dark-blue-900 px-4 pb-4 pr-2 pt-2 text-2xl font-bold text-[#EFF40C]">
+                    $
+                  </div>
+
+                  <span
+                    class="absolute left-0 top-0 flex h-full w-full items-center justify-center bg-black/40 text-9xl font-medium text-[#EFF40C] opacity-0 transition-all ease-out [text-shadow:0_1px_10px_rgb(239_244_12_/_70%)] group-hover:opacity-100">
+                    $
+                  </span>
+                @endif
+              </div>
+
+              <!-- Film Title -->
+              <div class="pt-3.5 text-sm font-semibold text-white">
+                <p class="line-clamp-2 leading-5">
+                  {{ $film->title }}
+                </p>
+              </div>
+            </a>
+          </div>
+        @endforeach
+
+      </div>
     </section>
 
     <!-- News Release -->
@@ -101,7 +135,64 @@
         <div>
           <h5 class="text-h5 text-end text-white font-bold mb-6">New Release</h5>
         </div>
-        <div class="flex gap-x-6 justify-center relative" id="newReleaseCont"></div>
+        <div class="flex gap-x-6 justify-center relative" id="newReleaseCont">
+          @foreach ($films as $film)
+            <div class="w-full transition-all duration-300 ease-in">
+              <a href="/films/{{ $film->slug }}">
+                <div class="group relative h-[261px] overflow-hidden rounded-[10px]">
+                  <img
+                    class="w-full h-full object-cover object-top group-hover:scale-105 ease-out transition-all duration-300 delay-100"
+                    src="{{ $film->poster }}" alt="{{ $film->title }}" />
+                  <div
+                    class="{{ $film->is_free
+                        ? 'hidden'
+                        : "absolute right-0 top-0 rounded-bl-full
+                                            bg-dark-blue-900 px-4 pb-4 pr-2 pt-2 text-2xl font-bold text-[#EFF40C]" }} ">
+                    $
+                  </div>
+                  <span
+                    class="{{ $film->is_free
+                        ? 'hidden'
+                        : "absolute left-0 top-0 flex h-full w-full
+                                              items-center justify-center bg-black/40 text-9xl font-medium text-[#EFF40C] opacity-0 transition-all
+                                              ease-out [text-shadow:0_1px_10px_rgb(239_244_12_/_70%)] group-hover:opacity-100" }}">$</span>
+                </div>
+                <div class="pt-3.5 text-sm font-semibold text-white">
+                  <p class="line-clamp-2 leading-5">
+                    {{ $film->title }}
+                  </p>
+                </div>
+              </a>
+            </div>
+            <div class="w-full transition-all duration-300 ease-in">
+              <a href="/films/{{ $film->slug }}">
+                <div class="group relative h-[261px] overflow-hidden rounded-[10px]">
+                  <img
+                    class="w-full h-full object-cover object-top group-hover:scale-105 ease-out transition-all duration-300 delay-100"
+                    src="{{ $film->poster }}" alt="{{ $film->title }}" />
+                  <div
+                    class="{{ $film->is_free
+                        ? 'hidden'
+                        : "absolute right-0 top-0 rounded-bl-full
+                                            bg-dark-blue-900 px-4 pb-4 pr-2 pt-2 text-2xl font-bold text-[#EFF40C]" }} ">
+                    $
+                  </div>
+                  <span
+                    class="{{ $film->is_free
+                        ? 'hidden'
+                        : "absolute left-0 top-0 flex h-full w-full
+                                              items-center justify-center bg-black/40 text-9xl font-medium text-[#EFF40C] opacity-0 transition-all
+                                              ease-out [text-shadow:0_1px_10px_rgb(239_244_12_/_70%)] group-hover:opacity-100" }}">$</span>
+                </div>
+                <div class="pt-3.5 text-sm font-semibold text-white">
+                  <p class="line-clamp-2 leading-5">
+                    {{ $film->title }}
+                  </p>
+                </div>
+              </a>
+            </div>
+          @endforeach
+        </div>
       </div>
     </section>
 
@@ -188,4 +279,7 @@
     </section>
 
   </main>
+@endsection
+@section('js-custom')
+  <script src="{{ asset('js/landing.js') }}"></script>
 @endsection

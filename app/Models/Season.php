@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Season extends Model
 {
     use HasFactory;
+
+    public function episodes()
+    {
+        return $this->hasMany(Episode::class, 'season_id');
+    }
 }

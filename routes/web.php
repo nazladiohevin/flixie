@@ -1,5 +1,12 @@
 <?php
 
+use App\Http\Controllers\Api\ApiTransactionController;
+use App\Http\Controllers\FilmController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\login\LoginController;
+use App\Http\Controllers\LogoutController;
+use App\Http\Controllers\register\RegisterController;
+use App\Http\Controllers\TransactionController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,25 +26,34 @@ use Illuminate\Support\Facades\Route;
  * 
  */
 
-Route::get('/', function () {
-    return view('index');
-})->name("home");
+Route::get('/', [HomeController::class, "index"])->name("home");
+Route::get("films/{film:slug}", [FilmController::class, "content"]);
 
-Route::get('/about', function () {
-    return view('about');
-})->name("about");
 
-Route::get('/movies', function () {
-    return view('movies');
-})->name("movies");
+Route::get('/about', function () { return view('about'); })->name("about");
+Route::get('/movies', function () { return view('movies');})->name("movies");
+Route::get('/tv-series', function () { return view('tv-series'); })->name("tv-series");
 
-Route::get('/tv-series', function () {
-    return view('tv-series');
-})->name("tv-series");
+Route::middleware(["auth", "purchased"])->group(function() {
+    // Clientsds
+    Route::get("films/{film:slug}/vidio", [FilmController::class, "play_movie"]);    
+    Route::get("films/{film:slug}/{season}/{episode}", [FilmController::class, "play_tv"]);
+    Route::get('/myfilm', [TransactionController::class, "index"])->name("myfilm");
+});
 
-Route::get('/myfilm', function () {
-    return view('myfilm');
-})->name("myfilm");
+Route::middleware(["guest"])->group(function() {
+    // Client
+    Route::get("/login", [LoginController::class, "index"])->name("login");    
+    Route::get("/register", [RegisterController::class, "index"])->name("register");    
+});
+
+/**
+ * Login & Register
+ */
+
+Route::post("/login", [LoginController::class, "authenticate"]);
+Route::post("/logout", [LogoutController::class, "index"]);
+Route::post("/register", [RegisterController::class, "store"]);
 
 /**
  * 
