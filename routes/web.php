@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\admin\AdminTransactionController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\TransactionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -61,6 +63,4 @@ Route::get('/flixie-admin/dashboard/film', function () {
     return view('admin.film');
 })->name("film");
 
-Route::get('/flixie-admin/dashboard/transaction', function () {
-    return view('admin.transaction');
-})->name("transaction");
+Route::resource("/flixie-admin/dashboard/transaction", \App\Http\Controllers\admin\AdminTransactionController::class);
