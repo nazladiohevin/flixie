@@ -1,0 +1,70 @@
+body {
+    background-color: #23272a;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    margin: 0;
+}
+
+.card {
+    background-color: #2c2f33;
+    border-radius: 15px;
+    border: none;
+    padding: 20px;
+    width: 400px;
+}
+
+.card-header, .card-body, .card-footer {
+    background-color: #2c2f33;
+    border: none;
+    text-align: center;
+}
+
+.text-white {
+    color: #ffffff !important;
+}
+
+.btn-primary {
+    background-color: #ff66b2;
+    border: none;
+    color: #ffffff;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    width: 100%;
+}
+
+.btn-primary:hover {
+    background-color: #ff3385;
+    box-shadow: 0px 4px 15px rgba(255, 102, 178, 0.5);
+}
+
+.btn-link {
+    color: #ff66b2;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+.btn-link:hover {
+    color: #ff3385;
+    text-decoration: underline;
+}
+
+.form-control {
+    background-color: #2c2f33;
+    color: #ffffff;
+    border: 1px solid #7289da;
+}
+
+.form-control:focus {
+    background-color: #2c2f33;
+    color: #ffffff;
+    border: 1px solid #7289da;
+    box-shadow: none;
+}
+
+.form-check-label {
+    color: #ffffff;
+}
