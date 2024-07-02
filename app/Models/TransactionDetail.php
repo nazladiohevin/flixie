@@ -10,9 +10,15 @@ class TransactionDetail extends Model
 {
     use HasFactory;        
 
-    protected $fillable = ['transaction_id', 'film_id'];
+    protected $guarded = ["id"];
 
     public static function deleteBy($transactionId, $filmId){
         return DB::statement('DELETE FROM transaction_details WHERE transaction_id = ? AND film_id = ?', [$transactionId, $filmId]);
+    }
+
+    // Relationship with Transaction
+    public function transaction()
+    {
+        return $this->belongsTo(Transaction::class, 'transaction_id');
     }
 }

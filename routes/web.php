@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\admin\AdminFilmController;
-use App\Http\Controllers\Api\ApiTransactionController;
 use App\Http\Controllers\FilmController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\login\LoginController;
@@ -9,6 +8,7 @@ use App\Http\Controllers\LogoutController;
 use App\Http\Controllers\register\RegisterController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\admin\AdminTransactionController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -87,3 +87,4 @@ Route::get('/flixie-admin/dashboard/transaction', function () {
 })->name("transaction");
 
 Route::resource("/flixie-admin/dashboard/film", AdminFilmController::class);
+Route::resource("/flixie-admin/dashboard/transaction", AdminTransactionController::class);

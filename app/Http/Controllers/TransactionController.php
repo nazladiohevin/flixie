@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\PurchasedFilm;
 use App\Models\User;
 use Illuminate\Http\Request;
+use App\Models\Transaction;
 
 class TransactionController extends Controller
 {
@@ -19,4 +20,5 @@ class TransactionController extends Controller
         
         return view("myfilm", compact("transactions", "myFilms"));
     }
+    
 }
