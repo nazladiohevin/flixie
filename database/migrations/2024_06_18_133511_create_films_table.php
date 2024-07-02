@@ -21,7 +21,7 @@ return new class extends Migration
             $table->date("release_date");
             $table->text("url_trailer")->nullable();
             $table->text("url_vidio")->nullable();
-            $table->enum("region", ["english", "indonesia", "eropa", "japan"]);
+            $table->enum("region", ["english", "indonesian", "europa", "japanese", "south korea"]);
             $table->integer("duration");
             $table->string("poster");
             $table->string("banner");

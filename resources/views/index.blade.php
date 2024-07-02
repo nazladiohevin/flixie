@@ -75,7 +75,7 @@
                 <!-- Button -->
                 <div class="mt-5">
                   <a href="src/views/movies-description.html"
-                    class="flex w-fit items-center rounded-lg bg-lagoon-500 px-4 py-2 text-bsm md:text-bLg font-bold shadow-[1px_1px_23px_14px_rgb(26_225_255_/_25%)] transition-all duration-300 hover:scale-105">
+                    class="flex w-fit items-center text-black rounded-lg bg-lagoon-500 px-4 py-2 text-bsm md:text-bLg font-bold shadow-[1px_1px_23px_14px_rgb(26_225_255_/_25%)] transition-all duration-300 hover:scale-105">
                     <svg class="me-1 w-7 md:w-10" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
                       <path fill="black"
                         d="M133 440a35.37 35.37 0 0 1-17.5-4.67c-12-6.8-19.46-20-19.46-34.33V111c0-14.37 7.46-27.53 19.46-34.33a35.13 35.13 0 0 1 35.77.45l247.85 148.36a36 36 0 0 1 0 61l-247.89 148.4A35.5 35.5 0 0 1 133 440" />
@@ -93,14 +93,14 @@
     <!-- Film Recomendation -->
     <section>
       <div class="relative -top-16 xl:-top-36 z-10 flex w-full justify-center gap-x-8" id="containerCards">
-        @foreach ($filmsWithRatings as $film)
+        @foreach ($favoriteFilms as $film)
           <div class="w-full transition-all duration-300 ease-in">
             <a href="/films/{{ $film->slug }}">
               <div class="group relative h-[261px] overflow-hidden rounded-[10px]">
                 <!-- Poster Image -->
                 <img
                   class="w-full h-full object-cover object-top group-hover:scale-105 transition-all duration-300 delay-100"
-                  src="{{ $film->poster }}" alt="{{ $film->title }}" />
+                  src="https://media.themoviedb.org/t/p/w300_and_h450_bestv2/{{ $film->poster }}" alt="{{ $film->title }}" loading="lazy" />
 
                 <!-- Price Indicator -->
                 @if (!$film->is_free)
@@ -136,13 +136,21 @@
           <h5 class="text-h5 text-end text-white font-bold mb-6">New Release</h5>
         </div>
         <div class="flex gap-x-6 justify-center relative" id="newReleaseCont">
-          @foreach ($films as $film)
+          @foreach ($latestFilms as $film)
             <div class="w-full transition-all duration-300 ease-in">
               <a href="/films/{{ $film->slug }}">
                 <div class="group relative h-[261px] overflow-hidden rounded-[10px]">
+                  @php
+                    $posterPath = "";                    
+                    if (str_contains($film->poster, "images")) {
+                      $posterPath = asset("storage/" . $film->poster);                                          
+                    } else {
+                      $posterPath = "https://media.themoviedb.org/t/p/w300_and_h450_bestv2/" . $film->poster;                      
+                    }
+                  @endphp
                   <img
                     class="w-full h-full object-cover object-top group-hover:scale-105 ease-out transition-all duration-300 delay-100"
-                    src="{{ $film->poster }}" alt="{{ $film->title }}" />
+                    src="{{ $posterPath }}" alt="{{ $film->title }}" loading="lazy" />
                   <div
                     class="{{ $film->is_free
                         ? 'hidden'
@@ -163,34 +171,7 @@
                   </p>
                 </div>
               </a>
-            </div>
-            <div class="w-full transition-all duration-300 ease-in">
-              <a href="/films/{{ $film->slug }}">
-                <div class="group relative h-[261px] overflow-hidden rounded-[10px]">
-                  <img
-                    class="w-full h-full object-cover object-top group-hover:scale-105 ease-out transition-all duration-300 delay-100"
-                    src="{{ $film->poster }}" alt="{{ $film->title }}" />
-                  <div
-                    class="{{ $film->is_free
-                        ? 'hidden'
-                        : "absolute right-0 top-0 rounded-bl-full
-                                            bg-dark-blue-900 px-4 pb-4 pr-2 pt-2 text-2xl font-bold text-[#EFF40C]" }} ">
-                    $
-                  </div>
-                  <span
-                    class="{{ $film->is_free
-                        ? 'hidden'
-                        : "absolute left-0 top-0 flex h-full w-full
-                                              items-center justify-center bg-black/40 text-9xl font-medium text-[#EFF40C] opacity-0 transition-all
-                                              ease-out [text-shadow:0_1px_10px_rgb(239_244_12_/_70%)] group-hover:opacity-100" }}">$</span>
-                </div>
-                <div class="pt-3.5 text-sm font-semibold text-white">
-                  <p class="line-clamp-2 leading-5">
-                    {{ $film->title }}
-                  </p>
-                </div>
-              </a>
-            </div>
+            </div>            
           @endforeach
         </div>
       </div>
@@ -202,7 +183,37 @@
         <div>
           <h5 class="text-h5 text-end text-white font-bold mb-6">Gratis Populer</h5>
         </div>
-        <div class="flex gap-x-6 justify-center" id="freeCont"></div>
+        <div class="flex gap-x-6 justify-center" id="freeCont">
+          @foreach ($freeFilms as $film)
+            <div class="w-full transition-all duration-300 ease-in">
+              <a href="/films/{{ $film->slug }}">
+                <div class="group relative h-[261px] overflow-hidden rounded-[10px]">
+                  <img
+                    class="w-full h-full object-cover object-top group-hover:scale-105 ease-out transition-all duration-300 delay-100"
+                    src="https://media.themoviedb.org/t/p/w300_and_h450_bestv2{{ $film->poster }}" alt="{{ $film->title }}" loading="lazy" />
+                  <div
+                    class="{{ $film->is_free
+                        ? 'hidden'
+                        : "absolute right-0 top-0 rounded-bl-full
+                                            bg-dark-blue-900 px-4 pb-4 pr-2 pt-2 text-2xl font-bold text-[#EFF40C]" }} ">
+                    $
+                  </div>
+                  <span
+                    class="{{ $film->is_free
+                        ? 'hidden'
+                        : "absolute left-0 top-0 flex h-full w-full
+                                              items-center justify-center bg-black/40 text-9xl font-medium text-[#EFF40C] opacity-0 transition-all
+                                              ease-out [text-shadow:0_1px_10px_rgb(239_244_12_/_70%)] group-hover:opacity-100" }}">$</span>
+                </div>
+                <div class="pt-3.5 text-sm font-semibold text-white">
+                  <p class="line-clamp-2 leading-5">
+                    {{ $film->title }}
+                  </p>
+                </div>
+              </a>
+            </div>            
+          @endforeach
+        </div>
       </div>
     </section>
 
@@ -211,32 +222,29 @@
       <div class="mx-auto container px-6 xl:px-20 mt-48">
         <div class="relative lg:mx-16 h-[400px] md:h-[353px]">
           <div class="absolute top-0 left-0 w-full h-full overflow-hidden rounded-[20px]">
-            <img src="{{ asset('images/mini-banner.jpg') }}" alt="mini banner"
-              class="h-full w-full object-cover object-center">
+            <img src="https://media.themoviedb.org/t/p/w533_and_h300_bestv2{{ $upcomingTopFilm->banner }}" alt="mini banner"
+              class="h-full w-full object-cover object-center" loading="lazy">
           </div>
           <div class="flex justify-end gap-x-[42px] text-white absolute bg-dark-blue-1000/50 w-full h-full py-12 px-5">
-            <div class="text-end flex flex-col items-end gap-y-2">
-              <h5 class="font-bold text-2xl md:text-h5">Boboiboy The Movie 2</h5>
+            <div class="text-end flex flex-col items-end gap-y-2 md:w-[70%] xl:w-[75%] 2xl:w-[82%]">
+              <h5 class="font-bold text-2xl md:text-h5">{{ $upcomingTopFilm->title }}</h5>
               <div class="flex justify-end flex-wrap gap-3 text-llg font-semibold">
-                <div class="rounded-[9px] bg-lagoon-700 px-3 py-1.5">
-                  Adventure
-                </div>
-                <div class="rounded-[9px] bg-lagoon-700 px-3 py-1.5">
-                  Action
-                </div>
-                <div class="rounded-[9px] bg-lagoon-700 px-3 py-1.5">
-                  Comedy
-                </div>
-                <div class="rounded-[9px] bg-lagoon-700 px-2.5 py-1.5">
-                  Science
-                </div>
+                @foreach ($upcomingTopFilm->genre as $genre)
+                  <div class="rounded-[9px] bg-lagoon-700 px-3 py-1.5">
+                    {{ $genre->name }}
+                  </div>                  
+                @endforeach               
               </div>
               <p class="text-llg w-full py-1 line-clamp-3 md:line-clamp-4 md:w-4/6 xl:w-1/2">
-                BoBoiBoy dan teman-temannya diserang oleh penjahat bernama Retak'ka yang merupakan pengguna asli kekuatan
-                BoBoiBoy. Dia berusaha untuk mengambil kembali kekuatannya untuk menjadi orang yang paling kuat dan
-                mendominasi galaksi
+                {{ $upcomingTopFilm->description }}
               </p>
-              <p class="text-bsm font-bold pt-3">Tayang pada 10 Desember 2023</p>
+              @php
+                setlocale(LC_TIME, 'id_ID.UTF-8', 'Indonesian_indonesia.1252'); // Mengatur locale ke bahasa Indonesia
+                $date = '2023-06-12';
+                $timestamp = strtotime($upcomingTopFilm->release_date);
+                $formattedDate = strftime('%d %B %Y', $timestamp);                
+              @endphp
+              <p class="text-bsm font-bold pt-3">Tayang pada {{ $formattedDate }}</p>
               <div>
                 <a href="#"
                   class="flex items-center rounded-lg font-bold text-bsm px-5 py-2 bg-neon-400 text-black shadow-[1px_1px_23px_14px_rgb(252_80_194_/_25%)] transition-all duration-300 hover:scale-105">
@@ -249,9 +257,9 @@
               </div>
             </div>
             <div
-              class="hidden md:block rounded-[15px] overflow-hidden w-[calc(420px+20vw)] lg:w-[calc(350px+5vw)] 2xl:w-[calc(300px+.5vw)]">
-              <img src="{{ asset('images/poster5.jpg') }}" alt=""
-                class="w-full h-full object-cover object-center">
+              class="hidden md:block rounded-[15px] overflow-hidden md:w-[30%] xl:w-[25%] 2xl:w-[18%]">
+              <img src="https://media.themoviedb.org/t/p/w300_and_h450_bestv2{{ $upcomingTopFilm->poster }}" alt=""
+                class="w-full h-full object-cover object-center" loading="lazy">
             </div>
           </div>
         </div>
@@ -264,7 +272,37 @@
         <div>
           <h5 class="text-h5 text-end text-white font-bold mb-6">Segera Datang di Flixie</h5>
         </div>
-        <div class="flex gap-x-6 justify-center" id="comingsoonCont"></div>
+        <div class="flex gap-x-6 justify-center" id="comingsoonCont">
+          @foreach ($comingsoonFilms as $film)
+            <div class="w-full transition-all duration-300 ease-in">
+              <a href="/films/{{ $film->slug }}">
+                <div class="group relative h-[261px] overflow-hidden rounded-[10px]">
+                  <img
+                    class="w-full h-full object-cover object-top group-hover:scale-105 ease-out transition-all duration-300 delay-100"
+                    src="https://media.themoviedb.org/t/p/w300_and_h450_bestv2{{ $film->poster }}" alt="{{ $film->title }}" loading="lazy" />
+                  <div
+                    class="{{ $film->is_free
+                        ? 'hidden'
+                        : "absolute right-0 top-0 rounded-bl-full
+                                            bg-dark-blue-900 px-4 pb-4 pr-2 pt-2 text-2xl font-bold text-[#EFF40C]" }} ">
+                    $
+                  </div>
+                  <span
+                    class="{{ $film->is_free
+                        ? 'hidden'
+                        : "absolute left-0 top-0 flex h-full w-full
+                                              items-center justify-center bg-black/40 text-9xl font-medium text-[#EFF40C] opacity-0 transition-all
+                                              ease-out [text-shadow:0_1px_10px_rgb(239_244_12_/_70%)] group-hover:opacity-100" }}">$</span>
+                </div>
+                <div class="pt-3.5 text-sm font-semibold text-white">
+                  <p class="line-clamp-2 leading-5">
+                    {{ $film->title }}
+                  </p>
+                </div>
+              </a>
+            </div> 
+          @endforeach
+        </div>
       </div>
     </section>
 
@@ -274,7 +312,37 @@
         <div>
           <h5 class="text-h5 text-end text-white font-bold mb-6">Rekomendasi TV Series</h5>
         </div>
-        <div class="flex gap-x-6 justify-center" id="tvseriesCont"></div>
+        <div class="flex gap-x-6 justify-center" id="tvseriesCont">
+          @foreach ($tvFilms as $film)
+          <div class="w-full transition-all duration-300 ease-in">
+            <a href="/films/{{ $film->slug }}">
+              <div class="group relative h-[261px] overflow-hidden rounded-[10px]">
+                <img
+                  class="w-full h-full object-cover object-top group-hover:scale-105 ease-out transition-all duration-300 delay-100"
+                  src="https://media.themoviedb.org/t/p/w300_and_h450_bestv2{{ $film->poster }}" alt="{{ $film->title }}" loading="lazy" />
+                <div
+                  class="{{ $film->is_free
+                      ? 'hidden'
+                      : "absolute right-0 top-0 rounded-bl-full
+                                          bg-dark-blue-900 px-4 pb-4 pr-2 pt-2 text-2xl font-bold text-[#EFF40C]" }} ">
+                  $
+                </div>
+                <span
+                  class="{{ $film->is_free
+                      ? 'hidden'
+                      : "absolute left-0 top-0 flex h-full w-full
+                                            items-center justify-center bg-black/40 text-9xl font-medium text-[#EFF40C] opacity-0 transition-all
+                                            ease-out [text-shadow:0_1px_10px_rgb(239_244_12_/_70%)] group-hover:opacity-100" }}">$</span>
+              </div>
+              <div class="pt-3.5 text-sm font-semibold text-white">
+                <p class="line-clamp-2 leading-5">
+                  {{ $film->title }}
+                </p>
+              </div>
+            </a>
+          </div> 
+          @endforeach
+        </div>
       </div>
     </section>
 

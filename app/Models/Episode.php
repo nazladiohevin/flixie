@@ -9,6 +9,7 @@ class Episode extends Model
 {
     use HasFactory;
 
+    protected $guarded = ["id"];
     /**
      * Scope a query to include episodes of a specific season and episode.
      *

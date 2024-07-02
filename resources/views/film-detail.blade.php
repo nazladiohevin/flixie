@@ -4,11 +4,43 @@
 @endsection
 @section('content')
   <main>
+    {{-- Toast --}}
+    @if (Session::has("error"))
+      <div id="toast-danger" class="fixed z-50 top-22 right-3 flex items-center w-full max-w-xs p-4 mb-4 text-slate-800 bg-white rounded-lg shadow" role="alert">
+        <div class="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-red-500 bg-red-100 rounded-lg">
+            <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 11.793a1 1 0 1 1-1.414 1.414L10 11.414l-2.293 2.293a1 1 0 0 1-1.414-1.414L8.586 10 6.293 7.707a1 1 0 0 1 1.414-1.414L10 8.586l2.293-2.293a1 1 0 0 1 1.414 1.414L11.414 10l2.293 2.293Z"/>
+            </svg>
+            <span class="sr-only">Error icon</span>
+        </div>
+        <div class="ms-3 text-sm font-medium">{{ session("error") }}</div>
+        <button type="button" class="ms-auto -mx-1.5 -my-1.5 bg-white text-slate-500 hover:text-slate-900 rounded-lg focus:ring-2 focus:ring-slate-300 p-1.5 hover:bg-slate-100 inline-flex items-center justify-center h-8 w-8" data-dismiss-target="#toast-danger" aria-label="Close">
+            <span class="sr-only">Close</span>
+            <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+            </svg>
+        </button>
+      </div>    
+    @endif
+    
+
+    @php
+      $posterPath = "";                    
+      $bannerPath = "";                    
+      if (str_contains($film->poster, "images") && str_contains($film->banner, "images")) {
+        $posterPath = asset("storage/" . $film->poster);                                          
+        $bannerPath = asset("storage/" . $film->banner);                                          
+      } else {
+        $posterPath = "https://media.themoviedb.org/t/p/w300_and_h450_bestv2/" . $film->poster;                      
+        $bannerPath = "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces" . $film->banner;                      
+      }
+    @endphp
+
     <!-- Header/Jumbotron -->
     <header>
       <div class="h-[500px] md:h-[120vh] md:min-h-[700px] overflow-hidden">
         <div class="relative w-full h-full">
-          <img src="https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/{{ $film->banner }}"
+          <img src="{{ $bannerPath }}"
             alt="{{ $film->title }}" class="w-full h-full object-cover object-top" loading="lazy" />
           <div
             class="absolute left-0 top-0 z-10 h-full w-full bg-gradient-to-t from-dark-blue-1000 from-5% to-50% to-dark-blue-1000/0">
@@ -23,7 +55,7 @@
         <div class="flex flex-wrap xl:flex-nowrap gap-16">
           <!-- Rating -->
           <div class="mx-auto flex flex-col items-center space-y-10 basis-4/5 sm:basis-3/5 md:basis-1/2 lg:basis-1/4">
-            <div class="h-[422px] rounded-xl overflow-hidden w-full"><img src="{{ $film->poster }}"
+            <div class="h-[422px] rounded-xl overflow-hidden w-full"><img src="{{ $posterPath }}"
                 alt="{{ $film->title }}" class="h-full w-full object-cover object-top"></div>
             <div class="flex gap-x-7">
               <div class="basis-2/5 flex items-center gap-x-3">
@@ -35,8 +67,8 @@
                 <span class="text-3xl font-semibold text-[#EFF40C]">{{ number_format($meanRating, 1) }}</span>
               </div>
               <div class="text-bnormal text-white space-y-2">
-                <span class="block">{{ $film->comment->count() }} Rating</span>
-                <span class="block">{{ $film->comment->count() }} Review</span>
+                <span class="block">{{ $film->comments->count() }} Rating</span>
+                <span class="block">{{ $film->comments->count() }} Review</span>
               </div>
             </div>
           </div>
@@ -59,8 +91,8 @@
               @endphp
               <span class="block">Penayangan : {{ $releaseDate->year }}</span>
             </div>
-            <div class="flex  gap-x-10 my-11">
-              @if ($film->is_free)
+            <div class="flex  gap-x-10 my-11">              
+              @if ($film->is_free || $isPurchasedFilm)
                 <a href="{{ $film->slug }}/{{ $film->film_category->name == 'tv' ? '1/1' : 'vidio'  }}"
                   class="text-black flex w-min items-center rounded-lg bg-lagoon-500 px-4 py-2 text-bLg font-bold shadow-[1px_1px_23px_14px_rgb(26_225_255_/_25%)] transition-all duration-300 hover:scale-105">
                   <svg class="me-1 w-10" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
@@ -131,10 +163,16 @@
             </div>
           </div>
           <!-- Artist -->
+          @php
+            $counter = 0;
+          @endphp
           <div class="lg:basis-1/5 pt-24 text-white">
             <h5 class="text-bLg font-semibold mb-5">Artist</h5>
             <ul class="flex flex-wrap justify-center gap-5 sm:justify-start">
-              @foreach ($film->artist as $item)
+              @foreach ($film->artists as $item)
+                @if ($counter > 5)
+                  @break
+                @endif
                 <li class="w-40 flex flex-col gap-2.5  text-center xl:w-auto xl:text-start xl:flex-row">
                   <div class="w-[61px] h-[61px] mx-auto rounded-full overflow-hidden">
                     <img src="https://image.tmdb.org/t/p/w100_and_h100_face/{{ $item->image_path }}" alt="artist" loading="lazy">
@@ -143,7 +181,10 @@
                     <p class="font-semibold line-clamp-2">{{ $item->name }}</p>
                     <p class="font-light line-clamp-2">{{ $item->character }}</p>
                   </div>
-                </li>              
+                </li>   
+                @php
+                  $counter++;
+                @endphp           
               @endforeach           
             </ul>
           </div>

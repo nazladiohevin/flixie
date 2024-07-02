@@ -24,12 +24,16 @@
             }
             return response.json();
         })
-        .then(data => {
+        .then(data => {          
           Swal.fire({
-            title: "Sukses",
-            text: "Berhasil melakukan transaksi, silahkan melakukan checkout pembayaran",
-            icon: "success"
-          });                    
+            title: data.data ? "Perhatian" : "Sukses",
+            text: data.message,
+            icon: data.data ? "warning" : "success"
+          });        
+          
+          setTimeout(() => {
+            // window.location = baseUrl + "/myfilm";            
+          }, 1500);
         })
         .catch(error => {
             console.error('There has been a problem with your fetch operation:', error);

@@ -30,7 +30,7 @@
               </svg>
               <span class="inline-block text-lg font-bold text-[#EFF40C] ml-3 sm:mt-2 sm:text-h5">{{ number_format($meanRating, 1) }}</span>
               <span class="mx-3 text-white mt-2">|</span>
-              <span class="inline-block text-base text-white sm:mt-2 sm:text-bLg">{{ $film->comment->count() }} Ratings</span>
+              <span class="inline-block text-base text-white sm:mt-2 sm:text-bLg">{{ $film->comments->count() }} Ratings</span>
               {{-- <span class="mx-3 text-white mt-2">|</span> --}}
               {{-- <span class="inline-block text-base text-white sm:mt-2 sm:text-bLg">1.000.000 Views</span> --}}
             </div>   
@@ -141,10 +141,15 @@
             <ul class="mt-5 grid gap-5 grid-cols-1 md:grid-cols-2 xl:grid-cols-1">
              
               @foreach ($latest_films as $item)
+              @php                  
+                $link = $item->film_category->name == "tv" ? 
+                  "/films/" . $item->slug . "/" . $item->season->sortByDesc('created_at')->first()->season . "/" . $item->episode->sortByDesc('created_at')->first()->episode : "/films/" . $item->slug . "/" . "vidio";
+              @endphp
+            <a href="{{ $link }}">
                 <li class="overflow-hidden">
                   <div class="flex gap-x-5">
                     <div class="basis-2/5">
-                      <img src="{{ $item->poster }}" alt="Poster Film" class="h-28 w-full rounded-md object-cover object-center">
+                      <img src="https://media.themoviedb.org/t/p/w300_and_h450_bestv2{{ $item->poster }}" loading="lazy" alt="Poster Film" class="h-28 w-full rounded-md object-cover object-center">
                     </div>
                     <div class="basis-3/5 text-white">
                       <h3 class="font-medium line-clamp-1 sm:text-bLg">{{ $item->title }}</h3>                                              
@@ -156,6 +161,7 @@
                     </div>
                   </div>
                 </li>                                                             
+              </a>
               @endforeach
             </ul>
           </div>

@@ -13,51 +13,122 @@ class GenreSeeder extends Seeder
      */
     public function run(): void
     {
+        
         $genres = [
             [
-                'name' => 'Aksi',
-                'description' => 'Film yang menampilkan adegan cepat dan intens, seperti perkelahian, kejar-kejaran, dan ledakan.'
+                'name' => 'Action',
+                'description' => ''
             ],
             [
-                'name' => 'Petualangan',
-                'description' => 'Film yang berkisah tentang perjalanan dan penemuan, sering kali melibatkan lokasi eksotis dan misi yang menantang.'
+                'name' => 'Adventure',
+                'description' => ''
             ],
             [
-                'name' => 'Komedi',
-                'description' => 'Film yang dirancang untuk menghibur dan membuat penonton tertawa dengan karakter dan situasi lucu.'
+                'name' => 'Animation',
+                'description' => ''
+            ],
+            [
+                'name' => 'Comedy',
+                'description' => ''
+            ],
+            [
+                'name' => 'Crime',
+                'description' => ''
+            ],
+            [
+                'name' => 'Documentary',
+                'description' => ''
             ],
             [
                 'name' => 'Drama',
-                'description' => 'Film yang fokus pada pengembangan karakter dan tema emosional, sering kali menggambarkan situasi kehidupan nyata.'
+                'description' => ''
             ],
             [
-                'name' => 'Horor',
-                'description' => 'Film yang bertujuan menimbulkan ketakutan dan ketegangan, sering kali dengan elemen supernatural atau kejadian yang menyeramkan.'
+                'name' => 'Family',
+                'description' => ''
             ],
             [
-                'name' => 'Fiksi Ilmiah',
-                'description' => 'Film yang mengeksplorasi konsep futuristik, teknologi canggih, dan kehidupan makhluk asing, sering kali berlatar di luar angkasa.'
+                'name' => 'Fantasy',
+                'description' => ''
             ],
             [
-                'name' => 'Fantasi',
-                'description' => 'Film yang menampilkan dunia magis, makhluk mitologis, dan petualangan yang luar biasa di luar kenyataan.'
+                'name' => 'History',
+                'description' => ''
             ],
             [
-                'name' => 'Misteri',
-                'description' => 'Film yang berkisar pada pemecahan teka-teki atau pengungkapan rahasia, sering kali melibatkan penyelidikan kejahatan.'
+                'name' => 'Horror',
+                'description' => ''
             ],
             [
-                'name' => 'Romantis',
-                'description' => 'Film yang berfokus pada kisah cinta dan hubungan antar karakter, dengan penekanan pada emosi dan perasaan.'
+                'name' => 'Music',
+                'description' => ''
+            ],
+            [
+                'name' => 'Mystery',
+                'description' => ''
+            ],
+            [
+                'name' => 'Romance',
+                'description' => ''
+            ],
+            [
+                'name' => 'Science Fiction',
+                'description' => ''
+            ],
+            [
+                'name' => 'TV Movie',
+                'description' => ''
             ],
             [
                 'name' => 'Thriller',
-                'description' => 'Film yang dikenal dengan ketegangan dan sensasi, sering kali melibatkan intrik, kejahatan, atau penyelidikan.'
+                'description' => ''
+            ],
+            [
+                'name' => 'War',
+                'description' => ''
+            ],
+            [
+                'name' => 'Western',
+                'description' => ''
+            ],
+            [
+                'name' => 'Action & Adventure',
+                'description' => ''
+            ],
+            [
+                'name' => 'Kids',
+                'description' => ''
+            ],
+            [
+                'name' => 'News',
+                'description' => ''
+            ],
+            [
+                'name' => 'Reality',
+                'description' => ''
+            ],
+            [
+                'name' => 'Sci-Fi & Fantasy',
+                'description' => ''
+            ],
+            [
+                'name' => 'Soap',
+                'description' => ''
+            ],
+            [
+                'name' => 'Talk',
+                'description' => ''
+            ],
+            [
+                'name' => 'War & Politics',
+                'description' => ''
             ]
-        ];
+            ];        
 
         foreach ($genres as $genre) {
             Genre::create($genre);
         }
     }
 }
+
+

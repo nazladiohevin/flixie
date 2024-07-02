@@ -10,12 +10,16 @@ use Illuminate\Http\Request;
 class FilmController extends Controller
 {
     public function content(Film $film)
-    {
-        // @dd($film);                
-        
+    {        
+        $film = $film->load([
+            "genre", "genre_detail", "film_category", "artists", "episode", "season"
+        ]);
         $meanRating = $film->getMeanRating();        
 
-        return view("film-detail", compact("film", "meanRating"));
+        $userId = auth()->check() ? auth()->user()->id : 0;
+        $isPurchasedFilm = $film->purchased_films()->where("user_id", $userId)->exists();
+        
+        return view("film-detail", compact("film", "meanRating", "isPurchasedFilm"));
     }
 
     public function play_movie(Film $film){        

@@ -10,7 +10,7 @@ class Film extends Model
 {
     use HasFactory;
 
-    protected $with = ['genre_detail', "genre", "film_category", "season", "comment", "episode"];
+    // protected $with = ['genre_detail', "genre", "film_category", "season", "episode", "purchased_films"];
 
     protected $guarded = ["id"];
 
@@ -23,11 +23,15 @@ class Film extends Model
     }
 
     public function film_category() {
-        return $this->belongsTo(FilmCategory::class);
+        return $this->belongsTo(FilmCategory::class, "film_category_id");
     }
 
-    public function artist() {
-        return $this->belongsToMany(Artist::class, 'artist_details', 'film_id', 'artist_id');
+    public function artists() {
+        return $this->hasMany(Artist::class, 'film_id');
+    }
+
+    public function comments() {
+        return $this->hasMany(Comment::class, "film_id");
     }
 
     public function episode() {
@@ -38,13 +42,13 @@ class Film extends Model
         return $this->belongsToMany(Season::class, 'episodes', 'film_id', 'season_id');
     }
 
-    public function comment() {
-        return $this->hasMany(Comment::class);
+    public function purchased_films() {
+        return $this->hasMany(PurchasedFilm::class, "film_id", "id");
     }
 
     public function getMeanRating(){
-        $totalRating = $this->comment()->sum("rating");
-        $countRating = $this->comment()->count("rating");
+        $totalRating = $this->comments()->sum("rating");
+        $countRating = $this->comments()->count("rating");
         
         $meanRating = floor(($countRating != 0) ? ($totalRating / $countRating) : 0); 
         return $meanRating;
@@ -58,11 +62,9 @@ class Film extends Model
             ->select('films.*', DB::raw('COALESCE(AVG(comments.rating), 0) as meanRating'))
             ->groupBy('films.id');
     }
-
-    // public function getRouteKeyName()
-    // {
-    //     return 'slug';
-    // }
-
-    // public function genre
+    
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
 }

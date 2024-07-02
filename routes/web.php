@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\admin\AdminFilmController;
 use App\Http\Controllers\Api\ApiTransactionController;
 use App\Http\Controllers\FilmController;
 use App\Http\Controllers\HomeController;
@@ -34,10 +35,15 @@ Route::get('/about', function () { return view('about'); })->name("about");
 Route::get('/movies', function () { return view('movies');})->name("movies");
 Route::get('/tv-series', function () { return view('tv-series'); })->name("tv-series");
 
-Route::middleware(["auth", "purchased"])->group(function() {
-    // Clientsds
+
+Route::middleware(["purchased"])->group(function() {
+    // Client
     Route::get("films/{film:slug}/vidio", [FilmController::class, "play_movie"]);    
-    Route::get("films/{film:slug}/{season}/{episode}", [FilmController::class, "play_tv"]);
+    Route::get("films/{film:slug}/{season}/{episode}", [FilmController::class, "play_tv"]);    
+});
+
+Route::middleware(["auth"])->group(function() {
+    // Client    
     Route::get('/myfilm', [TransactionController::class, "index"])->name("myfilm");
 });
 
@@ -80,3 +86,5 @@ Route::get('/flixie-admin/dashboard/film', function () {
 Route::get('/flixie-admin/dashboard/transaction', function () {
     return view('admin.transaction');
 })->name("transaction");
+
+Route::resource("/flixie-admin/dashboard/film", AdminFilmController::class);

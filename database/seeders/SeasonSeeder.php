@@ -29,6 +29,21 @@ class SeasonSeeder extends Seeder
             [
                 "season" => 5,
             ],
+            [
+                "season" => 6,
+            ],
+            [
+                "season" => 7,
+            ],
+            [
+                "season" => 8,
+            ],
+            [
+                "season" => 9,
+            ],
+            [
+                "season" => 10,
+            ],
         ];
 
         foreach ($seasonData as $season) {

@@ -13,9 +13,10 @@ return new class extends Migration
     {
         Schema::create('artists', function (Blueprint $table) {
             $table->id();
+            $table->foreignId("film_id");
             $table->string("name");
             $table->string("character");
-            $table->string("image_path");
+            $table->string("image_path")->nullable();
             $table->timestamps();
         });
     }

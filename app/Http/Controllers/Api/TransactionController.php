@@ -21,18 +21,14 @@ class TransactionController extends Controller
 
     public function store(Request $request){
         $validator = Validator::make($request->all(), [
-            "id" => "required",            
+            "id" => "required|not_in:0",            
             "film_id" => "required",            
         ]);
         
+        
         if ($validator->fails()) {
-            return response()->json($validator->errors(), 422);
-        }
-
-        // Cek jika sudah memasukkan ke keranjang belanja yang statusnya masih fulfilled
-        // if () {
-        //     return 
-        // }
+            return new TransactionResource(false, "Login terlebih dahulu!", true);
+        }    
         
         $userId = $request->id;
         // return new TransactionResource(true, "List Film", $userId);
@@ -52,52 +48,59 @@ class TransactionController extends Controller
             $transactionId = Transaction::where("user_id", $userId)
                 ->where("status", "pending")->first()->id;
         }
+        
+        $isFilmInCart = TransactionDetail::where("transaction_id", $transactionId)
+            ->where("film_id", $request->film_id)
+            ->exists();
+        
+        // Cek jika sudah memasukkan ke keranjang belanja yang statusnya masih fulfilled
+        if ($isFilmInCart) {
+            return new TransactionResource(false, "Film sudah berada di keranjang belanja", $isFilmInCart);
+        }
                 
-        $transactionDetail = TransactionDetail::create([
+        TransactionDetail::create([
             "transaction_id" => $transactionId,
             "film_id" => $request->film_id
         ]);
 
-        return new TransactionResource(true, "List Film", compact("transactionDetail"));
+        return new TransactionResource(true, "Berhasil menambahkan di keranjang belanja, silahkan melakukan checkout pembayaran", true);
     }
 
     public function destroy($id)
-{
-    // Memisahkan transactionId dan filmId dari input
-    [$transactionId, $filmId] = explode('_', $id);
-    // Mengambil transaction berdasarkan ID
-    $transaction = Transaction::find($transactionId);
-    
-    // Jika transaction tidak ditemukan, kembalikan respon error
-    if (!$transaction) {
-        return response()->json(['message' => 'Transaction not found'], 404);
-    }
-    
-    // Mengambil transaction detail berdasarkan transaction_id dan film_id
-    $transactionDetail = TransactionDetail::where('transaction_id', $transactionId)
+    {        
+        [$transactionId, $filmId] = explode('_', $id);     
+        $transaction = Transaction::find($transactionId);
+        
+        // transaction tidak ditemukan
+        if (!$transaction) {
+            return response()->json(['message' => 'Transaction not found'], 404);
+        }
+                
+        $transactionDetail = TransactionDetail::where('transaction_id', $transactionId)
         ->where('film_id', $filmId)
         ->first();
-    
-    // Jika transaction detail tidak ditemukan, kembalikan respon error
-    if (!$transactionDetail) {
-        return response()->json(['message' => 'Transaction detail not found'], 404);
+        
+        // Transaction detail tidak ditemukan
+        if (!$transactionDetail) {
+            return response()->json(['message' => 'Transaction detail not found'], 404);
+        }
+        
+        // Menghapus transaction detail        
+        TransactionDetail::deleteBy($transactionId, $filmId);        
+        
+        // Cek apakah masih ada detail transaksi yang tersisa
+        if ($transaction->details()->count() === 0) {
+            // Jika tidak ada detail transaksi yang tersisa, ubah status transaksi menjadi 'failed'
+            $transaction->status = 'failed';
+            $transaction->save();
+        }
+
+        // Kembalikan respon sukses
+        return new TransactionResource(true, 'Transaction detail deleted successfully!', true);
     }
-    
-    // Menghapus transaction detail
-    // return new TransactionResource(true, 'Transaction detail deleted successfully!', compact("transactionDetail"));
-    $transactionDetail->delete();
 
-    // Cek apakah masih ada detail transaksi yang tersisa
-    if ($transaction->details()->count() === 0) {
-        // Jika tidak ada detail transaksi yang tersisa, ubah status transaksi menjadi 'failed'
-        $transaction->status = 'failed';
-        $transaction->save();
+    public function show() {
+        
     }
-
-    // Kembalikan respon sukses
-    return new TransactionResource(true, 'Transaction detail deleted successfully!', true);
-}
-
-
 
 }

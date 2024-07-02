@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\CheckoutController;
 use App\Http\Controllers\Api\TransactionController;
 use App\Http\Controllers\api\v1\TransactionsController;
 use Illuminate\Http\Request;
@@ -22,4 +23,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 // Route::middleware("auth:api")->group(function() {
 // });
 Route::apiResource('/transactions', TransactionController::class);
+Route::apiResource('/checkout', CheckoutController::class)->except(["show", "destroy", "index", "update"]);
 // Route::post('/v1/transactions/store', [TransactionsController::class, "store"]);
