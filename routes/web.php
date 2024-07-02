@@ -8,6 +8,7 @@ use App\Http\Controllers\login\LoginController;
 use App\Http\Controllers\LogoutController;
 use App\Http\Controllers\register\RegisterController;
 use App\Http\Controllers\TransactionController;
+use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -71,9 +72,7 @@ Route::get('/flixie-admin', function () {
     return view('admin.login.index');
 })->name("login-admin");
 
-Route::get('/flixie-admin/dashboard', function () {
-    return view('admin.index');
-})->name("home-admin");
+Route::get('/flixie-admin/dashboard', [DashboardController::class, 'index'])->name("home-admin");
 
 Route::get('/flixie-admin/dashboard/user', function () {
     return view('admin.user');
