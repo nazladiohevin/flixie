@@ -9,6 +9,9 @@ use App\Http\Controllers\register\RegisterController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\admin\AdminTransactionController;
+use App\Http\Controllers\admin\Auth\AdminLoginController;
+use App\Http\Controllers\admin\Auth\AdminLogoutController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -68,23 +71,18 @@ Route::post("/register", [RegisterController::class, "store"]);
  * 
  */
 
-Route::get('/flixie-admin', function () {
-    return view('admin.login.index');
-})->name("login-admin");
+Route::get("/flixie-admin", [AdminLoginController::class, "index"])->name("login-admin");
+Route::post("/flixie-admin", [AdminLoginController::class, "authenticate"]);
 
-Route::get('/flixie-admin/dashboard', [DashboardController::class, 'index'])->name("home-admin");
+Route::middleware(["admin"])->group(function() {    
+    Route::get('/flixie-admin/dashboard', [DashboardController::class, 'index'])->name("home-admin");    
+    Route::post("/flixie-admin/logout", [AdminLogoutController::class, "index"]);        
+    
+    Route::resource("/flixie-admin/dashboard/film", AdminFilmController::class);
+    Route::resource("/flixie-admin/dashboard/transaction", AdminTransactionController::class)
+        ->except(["create", "store"]);
+    Route::resource('flixie-admin/dashboard/users', UserController::class);
+    
+});
 
-Route::get('/flixie-admin/dashboard/user', function () {
-    return view('admin.user');
-})->name("userpage");
 
-Route::get('/flixie-admin/dashboard/film', function () {
-    return view('admin.film');
-})->name("film");
-
-Route::get('/flixie-admin/dashboard/transaction', function () {
-    return view('admin.transaction');
-})->name("transaction");
-
-Route::resource("/flixie-admin/dashboard/film", AdminFilmController::class);
-Route::resource("/flixie-admin/dashboard/transaction", AdminTransactionController::class);

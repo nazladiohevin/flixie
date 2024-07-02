@@ -15,7 +15,7 @@
 
         <div class="mb-6">
           <label for="user" class="block text-gray-700 text-sm font-bold mb-2">User Name:</label>
-          <input type="text" id="user" name="user" value="{{ $transaction->user->name }}" class="shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" readonly>
+          <input type="text" id="user" name="name" value="{{ $transaction->user->name }}" class="shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" readonly>
         </div>
 
         <div class="mb-6">
@@ -23,7 +23,7 @@
           <select id="status" name="status" class="shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
             <option value="pending" {{ $transaction->status == 'pending' ? 'selected' : '' }}>Pending</option>
             <option value="completed" {{ $transaction->status == 'completed' ? 'selected' : '' }}>Completed</option>
-            <option value="canceled" {{ $transaction->status == 'canceled' ? 'selected' : '' }}>Canceled</option>
+            <option value="failed" {{ $transaction->status == 'failed' ? 'selected' : '' }}>Failed</option>
           </select>
         </div>
 
@@ -32,7 +32,7 @@
             Update
           </button>
           <a href="{{ route('transaction.index') }}" class="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800">
-            Cancel
+            Kembali
           </a>
         </div>
       </form>

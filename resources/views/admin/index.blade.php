@@ -1,8 +1,9 @@
 @extends('admin.layouts.main-admin')
 @section('tab-title')
-Home
+  Dashboard Home - Admin
 @endsection
 @section('content')
+<h1 class="font-bold text-4xl text-black">Selamat datang, {{ auth()->user()->name }}</h1>
 <div class="mx-auto max-w-screen-2xl p-4 md:p-6 2xl:p-10">
   <div class="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 xl:grid-cols-5 2xl:gap-7.5">
     <!-- Card Item Start -->

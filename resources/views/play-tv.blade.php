@@ -175,12 +175,19 @@
                 @php                  
                   $link = $item->film_category->name == "tv" ? 
                     "/films/" . $item->slug . "/" . $item->season->sortByDesc('created_at')->first()->season . "/" . $item->episode->sortByDesc('created_at')->first()->episode : "/films/" . $item->slug . "/" . "vidio";
-                @endphp
+                  
+                  $posterPath = '';
+                  if (str_contains($item->poster, 'images')) {
+                      $posterPath = asset('storage/' . $item->poster);
+                  } else {
+                      $posterPath = 'https://media.themoviedb.org/t/p/w300_and_h450_bestv2/' . $item->poster;
+                  }
+                @endphp                 
                 <a href="{{ $link }}">
                   <li class="overflow-hidden">
                     <div class="flex gap-x-5">
                       <div class="basis-2/5">
-                        <img src="https://media.themoviedb.org/t/p/w300_and_h450_bestv2{{ $item->poster }}" alt="Poster Film" loading="lazy" class="h-28 w-full rounded-md object-cover object-top">
+                        <img src="{{ $posterPath }}" alt="Poster Film" loading="lazy" class="h-28 w-full rounded-md object-cover object-top">
                       </div>
                       <div class="basis-3/5 text-white">
                         <h3 class="font-medium line-clamp-1 sm:text-bLg">{{ $item->title }}</h3>                                              
@@ -201,7 +208,7 @@
     </section>
     
     <!-- Komentar -->
-    <section>
+    {{-- <section>
       <div class="container mx-auto px-6 mt-32 xl:px-24">
         <div class="flex items-center justify-between mb-12">
           <p class="text-bLg text-white font-semibold">Komentar</p>
@@ -252,7 +259,7 @@
           </div>
         </div>
       </div>
-    </section>
+    </section> --}}
   </main>
 @endsection
 @section("js-custom")

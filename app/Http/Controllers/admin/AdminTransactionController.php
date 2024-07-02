@@ -4,6 +4,7 @@ namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Transaction;
+use App\Models\TransactionDetail;
 use Illuminate\Http\Request;
 
 class AdminTransactionController extends Controller
@@ -40,7 +41,7 @@ class AdminTransactionController extends Controller
     public function show($id)
     {
         $transaction = Transaction::findOrFail($id);
-        return view('admin.transactions.show', compact('transaction'));
+        return view('admin.transaction.show', compact('transaction'));
     }
     /**
      * Show the form for editing the specified resource.
@@ -57,27 +58,26 @@ class AdminTransactionController extends Controller
     public function update(Request $request, string $id)
     {
         $request->validate([
-            'status' => 'required|string',
-            // Tambahkan validasi lain yang diperlukan
+            'status' => 'required|string',            
+        ]);
+
+        $transaction = Transaction::findOrFail($id);        
+        $transaction->update([            
+            'status' => $request->status,            
         ]);
     
-        $transaction = Transaction::findOrFail($id);
-        $transaction->update([
-            'status' => $request->status,
-            // Tambahkan atribut lain yang dapat diperbarui
-        ]);
-    
-        return redirect()->route('admin.transactions.index')->with('success', 'Transaction updated successfully');
+        return redirect()->route('transaction.index')->with('success', 'Berhasil update transaksi dari' . $request->name);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(string $transaction_id)
     {
-        $transaction = Transaction::findOrFail($id);
+        $transaction = Transaction::findOrFail($transaction_id);
         $transaction->delete();
-
-    return redirect()->route('admin.transactions.index')->with('success', 'Transaction deleted successfully');
+        TransactionDetail::where("transaction_id", $transaction_id)->delete();
+        
+        return redirect()->route('transaction.index')->with('success', "Berhasil menghapus transaksi");
     }
 }

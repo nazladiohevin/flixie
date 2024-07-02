@@ -29,13 +29,13 @@
             <label class="font-bold">Updated At:</label>
             <p>{{ $transaction->updated_at->format('d-m-Y H:i:s') }}</p>
         </div>
-        <a href="{{ route('admin.transactions.edit', $transaction->id) }}" class="bg-yellow-500 text-white px-4 py-2 rounded inline-block mb-2">Edit</a>
-        <form action="{{ route('admin.transactions.destroy', $transaction->id) }}" method="POST" class="inline" id="delete-form-{{ $transaction->id }}">
+        <a href="{{ route('transaction.edit', $transaction->id) }}" class="bg-yellow-500 text-white px-4 py-2 rounded inline-block mb-2">Edit</a>
+        <form action="{{ route('transaction.destroy', $transaction->id) }}" method="POST" class="inline" id="delete-form-{{ $transaction->id }}">
             @csrf
             @method('DELETE')
             <button type="submit" class="bg-red-500 text-white px-4 py-2 rounded" onclick="confirmDelete(event, '{{ $transaction->id }}')">Hapus</button>
         </form>
-        <a href="{{ route('admin.transactions.index') }}" class="bg-gray-500 text-white px-4 py-2 rounded">Kembali</a>
+        <a href="{{ route('transaction.index') }}" class="bg-gray-500 text-white px-4 py-2 rounded">Kembali</a>
     </div>
   </div>
 

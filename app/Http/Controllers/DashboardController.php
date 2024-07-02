@@ -10,7 +10,7 @@ class DashboardController extends Controller
 {
     //index
     public function index()
-    {
+    {           
         // total transaksi status failed
         $total_completed = Transaction::where('status', 'completed')->count();
         // total transaksi status pending

@@ -75,7 +75,7 @@
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                 required />
             </div>
-            <div class="flex justify-between">
+            {{-- <div class="flex justify-between">
               <div class="flex items-start">
                 <div class="flex items-center h-5">
                   <input id="remember" type="checkbox" value=""
@@ -85,7 +85,7 @@
               </div>
               <a href="#" class="text-bsm font-semibold text-white hover:underline underline-offset-3">Lupa
                 Password?</a>
-            </div>
+            </div> --}}
             <button type="submit"
               class="w-full text-black bg-neon-300 hover:bg-neon-400 focus:ring-4 focus:outline-none focus:ring-blue-300 font-bold rounded-lg text-sm px-5 py-2.5 text-center transition-all duration-300 hover:scale-105">Masuk
               ke akunmu</button>

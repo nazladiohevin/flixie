@@ -18,7 +18,7 @@ class HomeController extends Controller
 
 
         $favoriteFilms = Film::where("rating", ">=", 3)->limit($limit)->get();
-        $latestFilms = Film::orderBy("release_date", "desc")->limit($limit)->get();
+        $latestFilms = Film::orderBy("created_at", "desc")->limit($limit)->get();
         $freeFilms = Film::where("is_free", 1)->limit($limit)->get();
         $upcomingTopFilm = Film::with(["genre"])->where("release_date", ">", $currentDate)->orderBy('release_date', 'desc')->first();
         $comingsoonFilms = Film::where("release_date", ">", $currentDate)->limit($limit)->orderBy('release_date', 'desc')->get();

@@ -84,21 +84,23 @@
           <input type="time" name="duration" class="w-25 rounded-lg bg-slate-100 text-gray-900 leading-none border-none focus:ring-blue-500 focus:border-blue-500 block flex-1 text-sm p-2.5" min="00:00" max="24:00" value="00:00" required>                                
         </div>
 
-        <div>
+        <div class="space-y-3">
           <label class="mb-3 block text-sm font-medium text-black">
             Poster
           </label>
+          <div><img src="{{ asset("images/dummy-image.jpg") }}" class="poster-img-preview w-45 rounded-lg" alt=""></div>
           <div>            
-            <input type="file" name="poster" accept=".jpg, .jpeg, .png, .svg" class="w-full cursor-pointer rounded-lg border-[1.5px] border-stroke bg-slate-100 font-normal outline-none transition file:mr-5 file:border-collapse file:cursor-pointer file:border-0 file:border-r file:border-solid file:border-stroke file:bg-whiter file:px-5 file:py-3  active:border-primary disabled:cursor-default disabled:bg-whiter">
+            <input type="file" onchange="previewImage('#poster', '.poster-img-preview')" id="poster" name="poster" accept=".jpg, .jpeg, .png, .svg" class="w-full cursor-pointer rounded-lg border-[1.5px] border-stroke bg-slate-100 font-normal outline-none transition file:mr-5 file:border-collapse file:cursor-pointer file:border-0 file:border-r file:border-solid file:border-stroke file:bg-whiter file:px-5 file:py-3  active:border-primary disabled:cursor-default disabled:bg-whiter">
           </div>
         </div>
         
-        <div>
+        <div class="space-y-3">
           <label class="mb-3 block text-sm font-medium text-black">
             Banner
-          </label>
+          </label>          
+          <div><img src="{{ asset("images/dummy-image.jpg") }}" class="banner-img-preview w-45 rounded-lg" alt=""></div>
           <div>            
-            <input type="file" name="banner" accept=".jpg, .jpeg, .png, .svg" class="w-full cursor-pointer rounded-lg border-[1.5px] border-stroke bg-slate-100 font-normal outline-none transition file:mr-5 file:border-collapse file:cursor-pointer file:border-0 file:border-r file:border-solid file:border-stroke file:bg-whiter file:px-5 file:py-3  active:border-primary disabled:cursor-default disabled:bg-whiter">
+            <input type="file" onchange="previewImage('#banner', '.banner-img-preview')" id="banner" name="banner" accept=".jpg, .jpeg, .png, .svg" class="w-full cursor-pointer rounded-lg border-[1.5px] border-stroke bg-slate-100 font-normal outline-none transition file:mr-5 file:border-collapse file:cursor-pointer file:border-0 file:border-r file:border-solid file:border-stroke file:bg-whiter file:px-5 file:py-3  active:border-primary disabled:cursor-default disabled:bg-whiter">
           </div>
         </div>
         

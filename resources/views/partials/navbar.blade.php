@@ -45,7 +45,7 @@
               <li>
                 <form action="/logout" method="post">
                   @csrf                  
-                  <button type="submit" class="flex items-center px-5 py-2 gap-x- w-full hover:bg-dark-blue-700">
+                  <button type="submit" class="flex items-center px-5 py-2 gap-x-4 w-full hover:bg-dark-blue-700">
                     <svg xmlns="http://www.w3.org/2000/svg" class="text-white size-6" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M10 8V6a2 2 0 0 1 2-2h7a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-7a2 2 0 0 1-2-2v-2"/><path d="M15 12H3l3-3m0 6l-3-3"/></g></svg>
                     Keluar
                   </button>
@@ -87,13 +87,13 @@
         <li>
           <a href="{{ route('home') }}" class="block rounded px-3 py-2 lg:p-0 lg:hover:text-lagoon-500">Home</a>
         </li>
-        <li>
+        {{-- <li>
           <a href="{{ route('movies') }}" class="block rounded px-3 py-2 lg:p-0 lg:hover:text-lagoon-500">Movies</a>
         </li>
         <li>
           <a href="{{ route('tv-series') }}" class="block rounded px-3 py-2 lg:p-0 lg:hover:text-lagoon-500">TV
             Show</a>
-        </li>
+        </li> --}}
         <li>
           <a href="{{ route('myfilm') }}" class="block rounded px-3 py-2 lg:p-0 lg:hover:text-lagoon-500">FilmKu</a>
         </li>

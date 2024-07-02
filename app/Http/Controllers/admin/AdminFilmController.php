@@ -8,6 +8,7 @@ use App\Models\Film;
 use App\Models\FilmCategory;
 use App\Models\Genre;
 use App\Models\GenreDetail;
+use App\Models\Season;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
@@ -188,11 +189,9 @@ class AdminFilmController extends Controller
 
         // ambil key yt trailer & vidio
         $urlTrailerKey = $this->getYoutubeVideoId($validatedData["url_trailer"]); 
-        if ($request->url_vidio) {
-            $urlVidioKey = $this->getYoutubeVideoId($request->url_vidio);        
-        }        
+        $urlVidioKey = $this->getYoutubeVideoId($request->url_vidio);
 
-        $createdFilm = Film::where("id", $film->id)->update([
+        Film::where("id", $film->id)->update([
             "title" => $validatedData["title"],
             "slug" => $slug,
             "film_category_id" => (int) $validatedData["film_category"],
@@ -217,6 +216,19 @@ class AdminFilmController extends Controller
                 "film_id" => $film->id,
                 "genre_id" => (int) $genre
             ]);
+        }
+
+        if ((int) $request->film_category != $film->film_category_id) {
+            Episode::where("film_id", $film->id)->delete();
+
+            if ((int)$request->film_category == 2) {
+                Episode::create([
+                    "season_id" => 1,
+                    "film_id" => $film->id,
+                    "episode" => 1,
+                    "url_vidio" => $urlVidioKey
+                ]);
+            }
         }
 
         return redirect("/flixie-admin/dashboard/film")->with("success", "Berhasil mengedit film");        
