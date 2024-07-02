@@ -250,7 +250,7 @@
     </section> --}}
 
     <!-- Komentar -->
-    <section>
+    {{-- <section>
       <div class="container mx-auto px-6 mt-32 xl:px-24">
         <div class="flex items-center justify-between mb-12">
           <p class="text-bLg text-white font-semibold">Komentar</p>
@@ -314,7 +314,7 @@
           </div>
         </div>
       </div>
-    </section>
+    </section> --}}
   </main>
 @endsection
 @section("js-custom")  

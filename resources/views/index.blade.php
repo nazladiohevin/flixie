@@ -100,7 +100,8 @@
                 <!-- Poster Image -->
                 <img
                   class="w-full h-full object-cover object-top group-hover:scale-105 transition-all duration-300 delay-100"
-                  src="https://media.themoviedb.org/t/p/w300_and_h450_bestv2/{{ $film->poster }}" alt="{{ $film->title }}" loading="lazy" />
+                  src="https://media.themoviedb.org/t/p/w300_and_h450_bestv2/{{ $film->poster }}"
+                  alt="{{ $film->title }}" loading="lazy" />
 
                 <!-- Price Indicator -->
                 @if (!$film->is_free)
@@ -141,11 +142,11 @@
               <a href="/films/{{ $film->slug }}">
                 <div class="group relative h-[261px] overflow-hidden rounded-[10px]">
                   @php
-                    $posterPath = "";                    
-                    if (str_contains($film->poster, "images")) {
-                      $posterPath = asset("storage/" . $film->poster);                                          
+                    $posterPath = '';
+                    if (str_contains($film->poster, 'images')) {
+                        $posterPath = asset('storage/' . $film->poster);
                     } else {
-                      $posterPath = "https://media.themoviedb.org/t/p/w300_and_h450_bestv2/" . $film->poster;                      
+                        $posterPath = 'https://media.themoviedb.org/t/p/w300_and_h450_bestv2/' . $film->poster;
                     }
                   @endphp
                   <img
@@ -155,15 +156,15 @@
                     class="{{ $film->is_free
                         ? 'hidden'
                         : "absolute right-0 top-0 rounded-bl-full
-                                            bg-dark-blue-900 px-4 pb-4 pr-2 pt-2 text-2xl font-bold text-[#EFF40C]" }} ">
+                                                                bg-dark-blue-900 px-4 pb-4 pr-2 pt-2 text-2xl font-bold text-[#EFF40C]" }} ">
                     $
                   </div>
                   <span
                     class="{{ $film->is_free
                         ? 'hidden'
                         : "absolute left-0 top-0 flex h-full w-full
-                                              items-center justify-center bg-black/40 text-9xl font-medium text-[#EFF40C] opacity-0 transition-all
-                                              ease-out [text-shadow:0_1px_10px_rgb(239_244_12_/_70%)] group-hover:opacity-100" }}">$</span>
+                                                                  items-center justify-center bg-black/40 text-9xl font-medium text-[#EFF40C] opacity-0 transition-all
+                                                                  ease-out [text-shadow:0_1px_10px_rgb(239_244_12_/_70%)] group-hover:opacity-100" }}">$</span>
                 </div>
                 <div class="pt-3.5 text-sm font-semibold text-white">
                   <p class="line-clamp-2 leading-5">
@@ -171,7 +172,7 @@
                   </p>
                 </div>
               </a>
-            </div>            
+            </div>
           @endforeach
         </div>
       </div>
@@ -188,22 +189,27 @@
             <div class="w-full transition-all duration-300 ease-in">
               <a href="/films/{{ $film->slug }}">
                 <div class="group relative h-[261px] overflow-hidden rounded-[10px]">
+                  @php
+                    $posterPath = '';
+                    if (str_contains($film->poster, 'images')) {
+                        $posterPath = asset('storage/' . $film->poster);
+                    } else {
+                        $posterPath = 'https://media.themoviedb.org/t/p/w300_and_h450_bestv2/' . $film->poster;
+                    }
+                  @endphp
                   <img
                     class="w-full h-full object-cover object-top group-hover:scale-105 ease-out transition-all duration-300 delay-100"
-                    src="https://media.themoviedb.org/t/p/w300_and_h450_bestv2{{ $film->poster }}" alt="{{ $film->title }}" loading="lazy" />
+                    src="{{ $posterPath }}" alt="{{ $film->title }}" loading="lazy" />
                   <div
                     class="{{ $film->is_free
                         ? 'hidden'
-                        : "absolute right-0 top-0 rounded-bl-full
-                                            bg-dark-blue-900 px-4 pb-4 pr-2 pt-2 text-2xl font-bold text-[#EFF40C]" }} ">
+                        : "absolute right-0 top-0 rounded-bl-full bg-dark-blue-900 px-4 pb-4 pr-2 pt-2 text-2xl font-bold text-[#EFF40C]" }} ">
                     $
                   </div>
                   <span
                     class="{{ $film->is_free
                         ? 'hidden'
-                        : "absolute left-0 top-0 flex h-full w-full
-                                              items-center justify-center bg-black/40 text-9xl font-medium text-[#EFF40C] opacity-0 transition-all
-                                              ease-out [text-shadow:0_1px_10px_rgb(239_244_12_/_70%)] group-hover:opacity-100" }}">$</span>
+                        : "absolute left-0 top-0 flex h-full w-full items-center justify-center bg-black/40 text-9xl font-medium text-[#EFF40C] opacity-0 transition-all ease-out [text-shadow:0_1px_10px_rgb(239_244_12_/_70%)] group-hover:opacity-100" }}">$</span>
                 </div>
                 <div class="pt-3.5 text-sm font-semibold text-white">
                   <p class="line-clamp-2 leading-5">
@@ -211,7 +217,7 @@
                   </p>
                 </div>
               </a>
-            </div>            
+            </div>
           @endforeach
         </div>
       </div>
@@ -222,8 +228,8 @@
       <div class="mx-auto container px-6 xl:px-20 mt-48">
         <div class="relative lg:mx-16 h-[400px] md:h-[353px]">
           <div class="absolute top-0 left-0 w-full h-full overflow-hidden rounded-[20px]">
-            <img src="https://media.themoviedb.org/t/p/w533_and_h300_bestv2{{ $upcomingTopFilm->banner }}" alt="mini banner"
-              class="h-full w-full object-cover object-center" loading="lazy">
+            <img src="https://media.themoviedb.org/t/p/w533_and_h300_bestv2{{ $upcomingTopFilm->banner }}"
+              alt="mini banner" class="h-full w-full object-cover object-center" loading="lazy">
           </div>
           <div class="flex justify-end gap-x-[42px] text-white absolute bg-dark-blue-1000/50 w-full h-full py-12 px-5">
             <div class="text-end flex flex-col items-end gap-y-2 md:w-[70%] xl:w-[75%] 2xl:w-[82%]">
@@ -232,8 +238,8 @@
                 @foreach ($upcomingTopFilm->genre as $genre)
                   <div class="rounded-[9px] bg-lagoon-700 px-3 py-1.5">
                     {{ $genre->name }}
-                  </div>                  
-                @endforeach               
+                  </div>
+                @endforeach
               </div>
               <p class="text-llg w-full py-1 line-clamp-3 md:line-clamp-4 md:w-4/6 xl:w-1/2">
                 {{ $upcomingTopFilm->description }}
@@ -242,7 +248,7 @@
                 setlocale(LC_TIME, 'id_ID.UTF-8', 'Indonesian_indonesia.1252'); // Mengatur locale ke bahasa Indonesia
                 $date = '2023-06-12';
                 $timestamp = strtotime($upcomingTopFilm->release_date);
-                $formattedDate = strftime('%d %B %Y', $timestamp);                
+                $formattedDate = strftime('%d %B %Y', $timestamp);
               @endphp
               <p class="text-bsm font-bold pt-3">Tayang pada {{ $formattedDate }}</p>
               <div>
@@ -256,10 +262,9 @@
                 </a>
               </div>
             </div>
-            <div
-              class="hidden md:block rounded-[15px] overflow-hidden md:w-[30%] xl:w-[25%] 2xl:w-[18%]">
-              <img src="https://media.themoviedb.org/t/p/w300_and_h450_bestv2{{ $upcomingTopFilm->poster }}" alt=""
-                class="w-full h-full object-cover object-center" loading="lazy">
+            <div class="hidden md:block rounded-[15px] overflow-hidden md:w-[30%] xl:w-[25%] 2xl:w-[18%]">
+              <img src="https://media.themoviedb.org/t/p/w300_and_h450_bestv2{{ $upcomingTopFilm->poster }}"
+                alt="" class="w-full h-full object-cover object-center" loading="lazy">
             </div>
           </div>
         </div>
@@ -274,33 +279,38 @@
         </div>
         <div class="flex gap-x-6 justify-center" id="comingsoonCont">
           @foreach ($comingsoonFilms as $film)
-            <div class="w-full transition-all duration-300 ease-in">
-              <a href="/films/{{ $film->slug }}">
-                <div class="group relative h-[261px] overflow-hidden rounded-[10px]">
-                  <img
-                    class="w-full h-full object-cover object-top group-hover:scale-105 ease-out transition-all duration-300 delay-100"
-                    src="https://media.themoviedb.org/t/p/w300_and_h450_bestv2{{ $film->poster }}" alt="{{ $film->title }}" loading="lazy" />
-                  <div
-                    class="{{ $film->is_free
-                        ? 'hidden'
-                        : "absolute right-0 top-0 rounded-bl-full
-                                            bg-dark-blue-900 px-4 pb-4 pr-2 pt-2 text-2xl font-bold text-[#EFF40C]" }} ">
-                    $
-                  </div>
-                  <span
-                    class="{{ $film->is_free
-                        ? 'hidden'
-                        : "absolute left-0 top-0 flex h-full w-full
-                                              items-center justify-center bg-black/40 text-9xl font-medium text-[#EFF40C] opacity-0 transition-all
-                                              ease-out [text-shadow:0_1px_10px_rgb(239_244_12_/_70%)] group-hover:opacity-100" }}">$</span>
+          <div class="w-full transition-all duration-300 ease-in">
+            <a href="/films/{{ $film->slug }}">
+              <div class="group relative h-[261px] overflow-hidden rounded-[10px]">
+                @php
+                  $posterPath = '';
+                  if (str_contains($film->poster, 'images')) {
+                      $posterPath = asset('storage/' . $film->poster);
+                  } else {
+                      $posterPath = 'https://media.themoviedb.org/t/p/w300_and_h450_bestv2/' . $film->poster;
+                  }
+                @endphp
+                <img
+                  class="w-full h-full object-cover object-top group-hover:scale-105 ease-out transition-all duration-300 delay-100"
+                  src="{{ $posterPath }}" alt="{{ $film->title }}" loading="lazy" />
+                <div
+                  class="{{ $film->is_free
+                      ? 'hidden'
+                      : "absolute right-0 top-0 rounded-bl-full bg-dark-blue-900 px-4 pb-4 pr-2 pt-2 text-2xl font-bold text-[#EFF40C]" }} ">
+                  $
                 </div>
-                <div class="pt-3.5 text-sm font-semibold text-white">
-                  <p class="line-clamp-2 leading-5">
-                    {{ $film->title }}
-                  </p>
-                </div>
-              </a>
-            </div> 
+                <span
+                  class="{{ $film->is_free
+                      ? 'hidden'
+                      : "absolute left-0 top-0 flex h-full w-full items-center justify-center bg-black/40 text-9xl font-medium text-[#EFF40C] opacity-0 transition-all ease-out [text-shadow:0_1px_10px_rgb(239_244_12_/_70%)] group-hover:opacity-100" }}">$</span>
+              </div>
+              <div class="pt-3.5 text-sm font-semibold text-white">
+                <p class="line-clamp-2 leading-5">
+                  {{ $film->title }}
+                </p>
+              </div>
+            </a>
+          </div>
           @endforeach
         </div>
       </div>
@@ -317,22 +327,27 @@
           <div class="w-full transition-all duration-300 ease-in">
             <a href="/films/{{ $film->slug }}">
               <div class="group relative h-[261px] overflow-hidden rounded-[10px]">
+                @php
+                  $posterPath = '';
+                  if (str_contains($film->poster, 'images')) {
+                      $posterPath = asset('storage/' . $film->poster);
+                  } else {
+                      $posterPath = 'https://media.themoviedb.org/t/p/w300_and_h450_bestv2/' . $film->poster;
+                  }
+                @endphp
                 <img
                   class="w-full h-full object-cover object-top group-hover:scale-105 ease-out transition-all duration-300 delay-100"
-                  src="https://media.themoviedb.org/t/p/w300_and_h450_bestv2{{ $film->poster }}" alt="{{ $film->title }}" loading="lazy" />
+                  src="{{ $posterPath }}" alt="{{ $film->title }}" loading="lazy" />
                 <div
                   class="{{ $film->is_free
                       ? 'hidden'
-                      : "absolute right-0 top-0 rounded-bl-full
-                                          bg-dark-blue-900 px-4 pb-4 pr-2 pt-2 text-2xl font-bold text-[#EFF40C]" }} ">
+                      : "absolute right-0 top-0 rounded-bl-full bg-dark-blue-900 px-4 pb-4 pr-2 pt-2 text-2xl font-bold text-[#EFF40C]" }} ">
                   $
                 </div>
                 <span
                   class="{{ $film->is_free
                       ? 'hidden'
-                      : "absolute left-0 top-0 flex h-full w-full
-                                            items-center justify-center bg-black/40 text-9xl font-medium text-[#EFF40C] opacity-0 transition-all
-                                            ease-out [text-shadow:0_1px_10px_rgb(239_244_12_/_70%)] group-hover:opacity-100" }}">$</span>
+                      : "absolute left-0 top-0 flex h-full w-full items-center justify-center bg-black/40 text-9xl font-medium text-[#EFF40C] opacity-0 transition-all ease-out [text-shadow:0_1px_10px_rgb(239_244_12_/_70%)] group-hover:opacity-100" }}">$</span>
               </div>
               <div class="pt-3.5 text-sm font-semibold text-white">
                 <p class="line-clamp-2 leading-5">
@@ -340,7 +355,7 @@
                 </p>
               </div>
             </a>
-          </div> 
+          </div>
           @endforeach
         </div>
       </div>
