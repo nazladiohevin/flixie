@@ -32,8 +32,8 @@
           });        
           
           setTimeout(() => {
-            // window.location = baseUrl + "/myfilm";            
-          }, 1500);
+            window.location = baseUrl + "/myfilm";
+          }, 1000);
         })
         .catch(error => {
             console.error('There has been a problem with your fetch operation:', error);

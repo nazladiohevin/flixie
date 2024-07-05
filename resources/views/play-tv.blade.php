@@ -31,6 +31,11 @@
               </button>                 --}}
             </div>
             
+            {{-- here --}}
+            <div class="mb-4">
+              <h5 class="font-bold text-2xl text-white">Episode</h5>
+            </div>
+            
             <div class="grid grid-cols-5 sm:grid-cols-7 lg:grid-cols-3 xl:grid-cols-5 gap-3" id="listEpisode">
               @foreach ($episodes as $item)
                 @php

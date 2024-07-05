@@ -89,7 +89,7 @@ class TransactionController extends Controller
         TransactionDetail::deleteBy($transactionId, $filmId);        
         
         // Cek apakah masih ada detail transaksi yang tersisa
-        if ($transaction->details()->count() === 0) {
+        if ($transaction->transaction_details()->count() === 0) {
             // Jika tidak ada detail transaksi yang tersisa, ubah status transaksi menjadi 'failed'
             $transaction->status = 'failed';
             $transaction->save();

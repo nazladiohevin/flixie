@@ -28,7 +28,13 @@ class FilmController extends Controller
         }
 
         $meanRating = $film->getMeanRating(); 
-        $latest_films = Film::latest()->take(3)->with(["season", "episode"])->get();        
+        $latest_films = Film::latest()
+            ->whereHas('film_category', function($query) {
+                $query->where('name', 'movie');
+            })
+            ->take(3)
+            ->with(['film_category'])
+            ->get();
         
         return view("play-film", compact(
             "film", "meanRating", "latest_films"            
@@ -45,7 +51,13 @@ class FilmController extends Controller
         $meanRating = $film->getMeanRating();        
         
 
-        $latest_films = Film::latest()->take(3)->with(["season", "episode"])->get();        
+        $latest_films = Film::latest()
+            ->whereHas('film_category', function($query) {
+                $query->where('name', 'tv');
+            })
+            ->take(3)
+            ->with(['season', 'episode', 'film_category'])
+            ->get();
 
         $episodeModel = new Episode();
         $episodes = $episodeModel->scopeListEpisodeSeason($film->id)

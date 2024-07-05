@@ -141,34 +141,34 @@
             <ul class="mt-5 grid gap-5 grid-cols-1 md:grid-cols-2 xl:grid-cols-1">
              
               @foreach ($latest_films as $item)
-              @php                  
-                $link = $item->film_category->name == "tv" ? 
-                  "/films/" . $item->slug . "/" . $item->season->sortByDesc('created_at')->first()->season . "/" . $item->episode->sortByDesc('created_at')->first()->episode : "/films/" . $item->slug . "/" . "vidio";
-                  
-                $posterPath = '';
-                if (str_contains($item->poster, 'images')) {
-                    $posterPath = asset('storage/' . $item->poster);
-                } else {
-                    $posterPath = 'https://media.themoviedb.org/t/p/w300_and_h450_bestv2/' . $item->poster;
-                }
-              @endphp
-            <a href="{{ $link }}">
-                <li class="overflow-hidden">
-                  <div class="flex gap-x-5">
-                    <div class="basis-2/5">
-                      <img src="{{ $posterPath }}" loading="lazy" alt="Poster Film" class="h-28 w-full rounded-md object-cover object-center">
+                @php                  
+                  $link = $item->film_category->name == "tv" ? 
+                    "/films/" . $item->slug . "/" . $item->season->sortByDesc('created_at')->first()->season . "/" . $item->episode->sortByDesc('created_at')->first()->episode : "/films/" . $item->slug . "/" . "vidio";
+                    
+                  $posterPath = '';
+                  if (str_contains($item->poster, 'images')) {
+                      $posterPath = asset('storage/' . $item->poster);
+                  } else {
+                      $posterPath = 'https://media.themoviedb.org/t/p/w300_and_h450_bestv2/' . $item->poster;
+                  }
+                @endphp
+                <a href="{{ $link }}">
+                  <li class="overflow-hidden">
+                    <div class="flex gap-x-5">
+                      <div class="basis-2/5">
+                        <img src="{{ $posterPath }}" loading="lazy" alt="Poster Film" class="h-28 w-full rounded-md object-cover object-center">
+                      </div>
+                      <div class="basis-3/5 text-white">
+                        <h3 class="font-medium line-clamp-1 sm:text-bLg">{{ $item->title }}</h3>                                              
+                        @if ($item->film_category->name == "tv")                        
+                          <p class="mt-2 text-sm sm:text-base">Season {{ $item->season->sortByDesc('created_at')->first()->season }}</p>
+                          <p class="mb-2 text-sm sm:text-base">Episode {{ $item->episode->sortByDesc('created_at')->first()->episode }}</p>                                                                    
+                        @endif
+                        <p class="mt-4 text-xs sm:text-sm">Rilis {{ Carbon::parse($item->created_at)->diffForHumans() }}</p>
+                      </div>
                     </div>
-                    <div class="basis-3/5 text-white">
-                      <h3 class="font-medium line-clamp-1 sm:text-bLg">{{ $item->title }}</h3>                                              
-                      @if ($item->film_category->name == "tv")                        
-                        <p class="mt-2 text-sm sm:text-base">Season {{ $item->season->sortByDesc('created_at')->first()->season }}</p>
-                        <p class="mb-2 text-sm sm:text-base">Episode {{ $item->episode->sortByDesc('created_at')->first()->episode }}</p>                                                                    
-                      @endif
-                      <p class="mt-4 text-xs sm:text-sm">Rilis {{ Carbon::parse($item->created_at)->diffForHumans() }}</p>
-                    </div>
-                  </div>
-                </li>                                                             
-              </a>
+                  </li>                                                             
+                </a>
               @endforeach
             </ul>
           </div>

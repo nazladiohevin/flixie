@@ -4,6 +4,7 @@
 @endsection
 @section('content')
   <main>
+  
     <header>
       <div class="h-[500px] md:h-screen md:min-h-[700px] -mt-6 overflow-hidden">
         <div class="relative h-full">
@@ -89,6 +90,103 @@
         </div>
       </div>
     </header>
+
+    {{-- @php
+      $posterPath = "";                    
+      $bannerPath = "";                    
+      if (str_contains($loveFilm->poster, "images") && str_contains($loveFilm->banner, "images")) {
+        $posterPath = asset("storage/" . $loveFilm->poster);                                          
+        $bannerPath = asset("storage/" . $loveFilm->banner);                                          
+      } else {
+        $posterPath = "https://media.themoviedb.org/t/p/w300_and_h450_bestv2/" . $loveFilm->poster;                      
+        $bannerPath = "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces" . $loveFilm->banner;                      
+      }
+    @endphp
+
+    <header>
+      <div class="h-[500px] md:h-screen md:min-h-[700px] -mt-6 overflow-hidden">
+        <div class="relative h-full">
+          <img src="{{ $bannerPath }}" alt="Big Banner" class="w-full h-full object-cover object-top" />
+          <div
+            class="absolute left-0 top-0 z-10 h-full w-full bg-gradient-to-r from-dark-blue-1000 from-30% to-dark-blue-1000/0">
+            <div class="h-full px-6 pt-24 shadow-white drop-shadow sm:px-[104px] sm:pt-28 md:pt-[130px]">
+              <h2
+                class="xl:pe-[633px] text-3xl uppercase sm:text-4xl lg:text-h2 font-bold !leading-tight text-white [text-shadow:_1px_2px_10px_rgb(255_255_255_/_35%)]">
+                {{ $loveFilm->title }}
+              </h2>
+              <div class="mt-7">
+                <p class="text-white pr-7 md:pr-[55%] mb-5 line-clamp-2 sm:line-clamp-3">
+                  {{ $loveFilm->description }}
+                </p>
+                <!-- Star -->
+                <div class="mb-4">
+                  <div class="flex items-center gap-x-6">
+                    <div class="flex items-end gap-x-3">
+                      <svg
+                        class="h-5 w-5 sm:h-8 sm:w-8 text-[#EFF40C] [filter:drop-shadow(0_1px_10px_rgb(239_244_12_/_50%))]"
+                        aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
+                        <path
+                          d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
+                      </svg>
+                      <svg
+                        class="h-5 w-5 sm:h-8 sm:w-8 text-[#EFF40C] [filter:drop-shadow(0_1px_10px_rgb(239_244_12_/_50%))]"
+                        aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
+                        <path
+                          d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
+                      </svg>
+                      <svg
+                        class="h-5 w-5 sm:h-8 sm:w-8 text-[#EFF40C] [filter:drop-shadow(0_1px_10px_rgb(239_244_12_/_50%))]"
+                        aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
+                        <path
+                          d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
+                      </svg>
+                      <svg
+                        class="h-5 w-5 sm:h-8 sm:w-8 text-[#EFF40C] [filter:drop-shadow(0_1px_10px_rgb(239_244_12_/_50%))]"
+                        aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
+                        <path
+                          d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
+                      </svg>
+                      <svg class="h-5 w-5 sm:h-8 sm:w-8 text-gray-300" aria-hidden="true"
+                        xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
+                        <path
+                          d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
+                      </svg>
+                    </div>
+                    <div class="text-[#EFF40C] font-semibold text-xl sm:text-3xl">4.0</div>
+                  </div>
+                </div>
+                <!-- Category Badge -->
+                <div class="flex flex-wrap gap-3 text-llg font-semibold text-white">
+                  <div class="rounded-[9px] bg-lagoon-700 px-3 py-1.5">
+                    Adventure
+                  </div>
+                  <div class="rounded-[9px] bg-lagoon-700 px-3 py-1.5">
+                    Action
+                  </div>
+                  <div class="rounded-[9px] bg-lagoon-700 px-3 py-1.5">
+                    Comedy
+                  </div>
+                  <div class="rounded-[9px] bg-lagoon-700 px-2.5 py-1.5">
+                    Science
+                  </div>
+                </div>
+                <!-- Button -->
+                <div class="mt-5">
+                  <a href="/film/{{ $loveFilm->slug }}"
+                    class="flex w-fit items-center text-black rounded-lg bg-lagoon-500 px-4 py-2 text-bsm md:text-bLg font-bold shadow-[1px_1px_23px_14px_rgb(26_225_255_/_25%)] transition-all duration-300 hover:scale-105">
+                    <svg class="me-1 w-7 md:w-10" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                      <path fill="black"
+                        d="M133 440a35.37 35.37 0 0 1-17.5-4.67c-12-6.8-19.46-20-19.46-34.33V111c0-14.37 7.46-27.53 19.46-34.33a35.13 35.13 0 0 1 35.77.45l247.85 148.36a36 36 0 0 1 0 61l-247.89 148.4A35.5 35.5 0 0 1 133 440" />
+                    </svg>
+                    <span>Tonton Sekarang</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header> --}}
 
     <!-- Film Recomendation -->
     <section>
