@@ -13,7 +13,7 @@ Preinstallation:
 1. Buat database dengan nama flixie
 2. Import SQL File ke database flixie
 
-#
+## Instalation
 
 Copy environment
 ```bash
